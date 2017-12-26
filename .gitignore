@@ -1,0 +1,13 @@
+# dependencies
+/node_modules
+
+# misc
+npm-debug.log
+
+# generated files
+*.js.map
+.nyc_output
+coverage
+
+# IDE
+.vscode

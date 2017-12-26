@@ -1,0 +1,60 @@
+{
+    "name": "mtg-info_put-sets",
+    "version": "1.0.0",
+    "description": "An API to store set information about Magic: the Gathering sets",
+    "main": "index.js",
+    "scripts": {
+        "lint": "tslint -c tslint.json 'src/**/*.ts'",
+        "build": "tsc",
+        "start": "npm run lint && npm run build && functions start && functions deploy putSet --trigger-http && functions call putSet --data={}",
+        "test": "tsc && nyc mocha src/**/*.js",
+        "functions": "functions"
+    },
+    "author": {
+        "name": "Travis Kosarek",
+        "email": "travis.kosarek@gmail.com"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "@google-cloud/datastore": "^1.3.2",
+        "express": "^4.16.2",
+        "moment": "^2.20.1",
+        "valid-url": "^1.0.9"
+    },
+    "devDependencies": {
+        "@google-cloud/functions-emulator": "^1.0.0-alpha.29",
+        "@types/chai": "^4.0.10",
+        "@types/express": "^4.11.0",
+        "@types/mocha": "^2.2.44",
+        "@types/moment": "^2.13.0",
+        "@types/sinon": "^4.1.2",
+        "@types/sinon-express-mock": "^1.3.2",
+        "@types/sinon-stub-promise": "^1.1.1",
+        "@types/valid-url": "^1.0.2",
+        "chai": "^4.1.2",
+        "mocha": "^4.0.1",
+        "nyc": "^11.4.1",
+        "sinon": "^4.1.3",
+        "sinon-express-mock": "^1.3.1",
+        "sinon-stub-promise": "^4.0.0",
+        "tslint": "^5.8.0",
+        "tslint-no-unused-expression-chai": "0.0.3",
+        "typescript": "^2.6.2"
+    },
+    "nyc": {
+        "per-file": true,
+        "include": [
+            "src/**/*.js"
+        ],
+        "exclude": [
+            "src/**/*.spec.js"
+        ],
+        "reporter": [
+            "text",
+            "html"
+        ],
+        "cache": true,
+        "all": true,
+        "report-dir": "./coverage"
+    }
+}
