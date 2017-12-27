@@ -64,16 +64,16 @@ export class API {
                 let kind = "set";
                 let validSets = [];
 
+                this.datastore = Datastore({
+                    projectId: this.projectId
+                });
+
                 sets.forEach((set) => {
                     Set.validateJSON(set as ISet);
                     validSets.push({
                         key: this.datastore.key([kind, set.set_code]),
                         data: set
                     });
-                });
-
-                this.datastore = Datastore({
-                    projectId: this.projectId
                 });
 
                 this.datastore

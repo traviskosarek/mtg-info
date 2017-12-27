@@ -52,15 +52,15 @@ var API = (function () {
             if (sets instanceof Array && sets.length > 0) {
                 var kind_1 = "set";
                 var validSets_1 = [];
+                this.datastore = Datastore({
+                    projectId: this.projectId
+                });
                 sets.forEach(function (set) {
                     models_1.Set.validateJSON(set);
                     validSets_1.push({
                         key: _this.datastore.key([kind_1, set.set_code]),
                         data: set
                     });
-                });
-                this.datastore = Datastore({
-                    projectId: this.projectId
                 });
                 this.datastore
                     .upsert(validSets_1)
