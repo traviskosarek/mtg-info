@@ -5,10 +5,9 @@
     "main": "index.js",
     "scripts": {
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
-        "build": "tsc",
-        "start": "npm run lint && npm run build && functions start && functions deploy putSet --trigger-http && functions call putSet --data={}",
-        "test": "tsc && nyc mocha src/**/*.js",
-        "functions": "functions"
+        "build": "npm run clean && tsc",
+        "test": "npm run build && nyc mocha src/**/*.js",
+        "clean": "del-cli ./src/**/*.js ./src/**/*.js.map ./index.js ./index.js.map ./.nyc_output ./coverage"
     },
     "author": {
         "name": "Travis Kosarek",
@@ -22,7 +21,6 @@
         "valid-url": "^1.0.9"
     },
     "devDependencies": {
-        "@google-cloud/functions-emulator": "^1.0.0-alpha.29",
         "@types/chai": "^4.0.10",
         "@types/express": "^4.11.0",
         "@types/mocha": "^2.2.44",
