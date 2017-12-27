@@ -430,6 +430,23 @@ describe("Set", () => {
     });
 
     describe("release_date", () => {
+        it("should ignore an empty release_date", () => {
+            // arrange
+            let releaseDate;
+            let errorOccurred = false;
+
+            // act
+            try {
+                Set.validateReleaseDate(releaseDate);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+        
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
         it("should invalidate an empty release_date", () => {
             // arrange
             let releaseDate = "";
@@ -585,6 +602,24 @@ describe("Set", () => {
     });
 
     describe("set_type", () => {
+        
+        it("should invalidate an undefined set_type", () => {
+            // arrange
+            let setType;
+            let errorOccurred = false;
+
+            // act
+            try {
+                Set.validateSetType(setType);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+        
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
         it("should invalidate an empty set_type", () => {
             // arrange
             let setType = "";

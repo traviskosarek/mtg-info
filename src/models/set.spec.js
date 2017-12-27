@@ -294,6 +294,17 @@ describe("Set", function () {
         });
     });
     describe("release_date", function () {
+        it("should ignore an empty release_date", function () {
+            var releaseDate;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateReleaseDate(releaseDate);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
         it("should invalidate an empty release_date", function () {
             var releaseDate = "";
             var errorOccurred = false;
@@ -395,6 +406,17 @@ describe("Set", function () {
         });
     });
     describe("set_type", function () {
+        it("should invalidate an undefined set_type", function () {
+            var setType;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateSetType(setType);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.true;
+        });
         it("should invalidate an empty set_type", function () {
             var setType = "";
             var errorOccurred = false;

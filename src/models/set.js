@@ -43,12 +43,15 @@ var Set = (function () {
         }
     };
     Set.validateReleaseDate = function (releaseDate) {
-        if (!(moment(releaseDate, "YYYY-MM-DD", true).isValid())) {
+        if (releaseDate !== undefined && !(moment(releaseDate, "YYYY-MM-DD", true).isValid())) {
             throw new Error("release_date must be in the form of YYYY-MM-DD. *** release_date = " + releaseDate);
         }
     };
     Set.validateSetType = function (setType) {
-        if (setType === "") {
+        if (setType === undefined) {
+            throw new Error("set_type is required");
+        }
+        else if (setType === "") {
             throw new Error("set_type cannot be empty");
         }
         else {
