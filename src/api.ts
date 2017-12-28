@@ -2,7 +2,7 @@ import * as Datastore from "@google-cloud/datastore";
 import { Request, Response } from "express";
 
 import { Set } from "./models";
-import { ISet } from "./interfaces";
+import { ISet, ICard } from "./interfaces";
 
 export class API {
     private static singleton: API;
@@ -26,7 +26,7 @@ export class API {
             let set = request.body;
             let kind = "set";
 
-            Set.validateJSON(set as ISet);
+            Set.validateSet(set as ISet);
 
             this.datastore = Datastore({
                 projectId: this.projectId
@@ -69,7 +69,7 @@ export class API {
                 });
 
                 sets.forEach((set) => {
-                    Set.validateJSON(set as ISet);
+                    Set.validateSet(set as ISet);
                     validSets.push({
                         key: this.datastore.key([kind, set.set_code]),
                         data: set
@@ -129,7 +129,7 @@ export class API {
                     } else {
                         response.status(400).json({
                             status: 400,
-                            message: "Set not found. *** set = " + set_code
+                            message: "Set not found *** set = " + set_code
                         });
                     }
                 })
@@ -238,5 +238,21 @@ export class API {
                 message: e.message
             });
         }
+    }
+
+    public putCard(request: Request, response: Response) {
+        //
+    }
+
+    public putCards(request: Request, response: Response) {
+        //
+    }
+
+    public getCard(request: Request, response: Response) {
+        //
+    }
+
+    public getCards(request: Request, response: Response) {
+        //
     }
 }

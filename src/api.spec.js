@@ -48,11 +48,11 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var dataStoreStub = sandbox.stub(Datastore.prototype);
             api_1.API.instance().putSet(request, response);
-            chai_1.expect(validateJSONStub.called).to.be.true;
-            validateJSONStub.restore();
+            chai_1.expect(validateSetStub.called).to.be.true;
+            validateSetStub.restore();
         });
         it("should reject input on an invalid set", function () {
             var body = {
@@ -62,7 +62,7 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON").callsFake(function (set) {
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet").callsFake(function (set) {
                 throw new Error("example error");
             });
             var dataStoreStub = sandbox.stub(Datastore.prototype);
@@ -70,7 +70,7 @@ describe("API", function () {
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(400);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
         it("should 'put' a valid set", function () {
             var body = {
@@ -90,7 +90,7 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
                 .returnsPromise()
@@ -99,7 +99,7 @@ describe("API", function () {
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(200);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
         it("should fail gracefully on save error", function () {
             var body = {
@@ -119,7 +119,7 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
                 .returnsPromise()
@@ -128,7 +128,7 @@ describe("API", function () {
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(500);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
     });
     describe("putSets", function () {
@@ -152,11 +152,11 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
             api_1.API.instance().putSets(request, response);
             chai_1.expect(datastoreUpsertStub.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
         it("should deny input with zero possible sets", function () {
@@ -165,14 +165,14 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
             api_1.API.instance().putSets(request, response);
             chai_1.expect(datastoreUpsertStub.called).to.be.false;
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(400);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
         it("should validate all possible sets", function () {
@@ -207,12 +207,12 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
             api_1.API.instance().putSets(request, response);
-            chai_1.expect(validateJSONStub.called).to.be.true;
-            chai_1.expect(validateJSONStub.callCount).to.be.equal(2);
-            validateJSONStub.restore();
+            chai_1.expect(validateSetStub.called).to.be.true;
+            chai_1.expect(validateSetStub.callCount).to.be.equal(2);
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
         it("should 'put' all validated sets", function () {
@@ -247,7 +247,7 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
                 .returnsPromise()
@@ -258,7 +258,7 @@ describe("API", function () {
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(200);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
         it("should fail gracefully on save error", function () {
@@ -293,7 +293,7 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON");
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet");
             var datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
                 .returnsPromise()
@@ -304,7 +304,7 @@ describe("API", function () {
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(500);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
         it("should reject input on invalid sets", function () {
@@ -320,7 +320,7 @@ describe("API", function () {
             };
             var request = sinon_express_mock_1.mockReq(body);
             var response = sinon_express_mock_1.mockRes();
-            var validateJSONStub = sandbox.stub(models_1.Set, "validateJSON").callsFake(function () {
+            var validateSetStub = sandbox.stub(models_1.Set, "validateSet").callsFake(function () {
                 throw new Error("example error");
             });
             var datastoreUpsertStub = sandbox
@@ -332,7 +332,7 @@ describe("API", function () {
             chai_1.expect(response.status.called).to.be.true;
             chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(400);
             chai_1.expect(response.json.called).to.be.true;
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
     });

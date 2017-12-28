@@ -65,17 +65,17 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
             let dataStoreStub = sandbox.stub(Datastore.prototype);
 
             // act
             API.instance().putSet(request, response);
 
             // assert
-            expect(validateJSONStub.called).to.be.true;
+            expect(validateSetStub.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
 
         it("should reject input on an invalid set", () => {
@@ -87,7 +87,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON").callsFake((set) => {
+            let validateSetStub = sandbox.stub(Set, "validateSet").callsFake((set) => {
                 throw new Error("example error");
             });
             let dataStoreStub = sandbox.stub(Datastore.prototype);
@@ -101,7 +101,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
 
         it("should 'put' a valid set", () => {
@@ -123,7 +123,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
 
             let datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
@@ -139,7 +139,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
 
         it("should fail gracefully on save error", () => {
@@ -161,7 +161,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
 
             let datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
@@ -177,7 +177,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
         });
     });
 
@@ -203,7 +203,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
             let datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
 
             // act
@@ -213,7 +213,7 @@ describe("API", () => {
             expect(datastoreUpsertStub.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
 
@@ -224,7 +224,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
             let datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
 
             // act
@@ -237,7 +237,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
 
@@ -274,18 +274,18 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
             let datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
 
             // act
             API.instance().putSets(request, response);
 
             // assert
-            expect(validateJSONStub.called).to.be.true;
-            expect(validateJSONStub.callCount).to.be.equal(2);
+            expect(validateSetStub.called).to.be.true;
+            expect(validateSetStub.callCount).to.be.equal(2);
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
 
@@ -322,7 +322,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
             let datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
                 .returnsPromise()
@@ -339,7 +339,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
 
@@ -376,7 +376,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON");
+            let validateSetStub = sandbox.stub(Set, "validateSet");
             let datastoreUpsertStub = sandbox
                 .stub(Datastore.prototype, "upsert")
                 .returnsPromise()
@@ -393,7 +393,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
 
@@ -411,7 +411,7 @@ describe("API", () => {
             };
             let request = mockReq(body);
             let response = mockRes();
-            let validateJSONStub = sandbox.stub(Set, "validateJSON").callsFake(() => {
+            let validateSetStub = sandbox.stub(Set, "validateSet").callsFake(() => {
                 throw new Error("example error");
             });
             let datastoreUpsertStub = sandbox
@@ -429,7 +429,7 @@ describe("API", () => {
             expect(response.json.called).to.be.true;
 
             // cleanup
-            validateJSONStub.restore();
+            validateSetStub.restore();
             datastoreUpsertStub.restore();
         });
     });

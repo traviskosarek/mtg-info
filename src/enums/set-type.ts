@@ -1,55 +1,55 @@
 export enum SetType {
     // A yearly Magic core set (Tenth Edition, etc)
-    core = "core",
+    Core = "core",
 
     // A rotational expansion set in a block (Zendikar, etc)
-    expansion = "expansion",
+    Expansion = "expansion",
 
     // A reprint set that contains no new cards (Modern Masters, etc)
-    masters = "masters",
+    Masters = "masters",
 
     // Masterpiece Series premium foil cards
-    masterpiece = "masterpiece",
+    Masterpiece = "masterpiece",
 
     // From the Vault gift sets
-    from_the_vault = "from_the_vault",
+    FromTheVault = "from_the_vault",
 
     // Premium Deck Series decks
-    premium_deck = "premium_deck",
+    PremiumDeck = "premium_deck",
 
     // Duel Decks
-    duel_deck = "duel_deck",
+    DuelDeck = "duel_deck",
 
     // Commander preconstructed decks
-    commander = "commander",
+    Commander = "commander",
 
     // Planechase sets
-    planechase = "planechase",
+    Planechase = "planechase",
 
     // Conspiracy sets
-    conspiracy = "conspiracy",
+    Conspiracy = "conspiracy",
 
     // Archenemy sets
-    archenemy = "archenemy",
+    Archenemy = "archenemy",
 
     // Vanguard card sets
-    vanguard = "vanguard",
+    Vanguard = "vanguard",
 
     // A funny un-set or set with funny promos (Unglued, Happy Holidays, etc)
-    funny = "funny",
+    Funny = "funny",
 
     // A starter/introductory set (Portal, etc)
-    starter = "starter",
+    Starter = "starter",
 
     // A gift box set
-    box = "box",
+    Box = "box",
 
     // A set that contains purely promotional cards
-    promo = "promo",
+    Promo = "promo",
 
     // A set made up of tokens and emblems.
-    token = "token",
+    Token = "token",
 
     // A set made up of gold-bordered, oversize, or trophy cards that are not legal
-    memorabilia = "memorabilia"
+    Memorabilia = "memorabilia"
 }

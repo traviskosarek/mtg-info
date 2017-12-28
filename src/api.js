@@ -16,7 +16,7 @@ var API = (function () {
         try {
             var set = request.body;
             var kind = "set";
-            models_1.Set.validateJSON(set);
+            models_1.Set.validateSet(set);
             this.datastore = Datastore({
                 projectId: this.projectId
             });
@@ -56,7 +56,7 @@ var API = (function () {
                     projectId: this.projectId
                 });
                 sets.forEach(function (set) {
-                    models_1.Set.validateJSON(set);
+                    models_1.Set.validateSet(set);
                     validSets_1.push({
                         key: _this.datastore.key([kind_1, set.set_code]),
                         data: set
@@ -113,7 +113,7 @@ var API = (function () {
                 else {
                     response.status(400).json({
                         status: 400,
-                        message: "Set not found. *** set = " + set_code_1
+                        message: "Set not found *** set = " + set_code_1
                     });
                 }
             })
@@ -218,6 +218,14 @@ var API = (function () {
                 message: e.message
             });
         }
+    };
+    API.prototype.putCard = function (request, response) {
+    };
+    API.prototype.putCards = function (request, response) {
+    };
+    API.prototype.getCard = function (request, response) {
+    };
+    API.prototype.getCards = function (request, response) {
     };
     return API;
 }());

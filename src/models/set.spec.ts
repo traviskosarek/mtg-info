@@ -4,6 +4,7 @@ import * as sinon from "sinon";
 
 import { Set } from "./set";
 import { ISet } from "../interfaces";
+import { SetType } from "../enums";
 
 
 let sandbox;
@@ -16,7 +17,7 @@ afterEach(function() {
 });
 
 describe("Set", () => {
-    describe("validateJSON", () => {
+    describe("validateSet", () => {
 
         it("should validate set_code", () => {
             // arrange
@@ -37,7 +38,7 @@ describe("Set", () => {
             let validateSetCodeStub = sandbox.stub(Set, "validateSetCode");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateSetCodeStub.called).to.be.true;
@@ -65,7 +66,7 @@ describe("Set", () => {
             let validateSetNameStub = sandbox.stub(Set, "validateSetName");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateSetNameStub.called).to.be.true;
@@ -93,7 +94,7 @@ describe("Set", () => {
             let validateReleaseDateStub = sandbox.stub(Set, "validateReleaseDate");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateReleaseDateStub.called).to.be.true;
@@ -121,7 +122,7 @@ describe("Set", () => {
             let validateSetTypeStub = sandbox.stub(Set, "validateSetType");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateSetTypeStub.called).to.be.true;
@@ -149,7 +150,7 @@ describe("Set", () => {
             let validateCardCountStub = sandbox.stub(Set, "validateCardCount");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateCardCountStub.called).to.be.true;
@@ -177,7 +178,7 @@ describe("Set", () => {
             let validateParentSetCodeStub = sandbox.stub(Set, "validateParentSetCode");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateParentSetCodeStub.called).to.be.true;
@@ -205,7 +206,7 @@ describe("Set", () => {
             let validateBlockCodeStub = sandbox.stub(Set, "validateBlockCode");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateBlockCodeStub.called).to.be.true;
@@ -233,7 +234,7 @@ describe("Set", () => {
             let validateBlockNameStub = sandbox.stub(Set, "validateBlockName");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateBlockNameStub.called).to.be.true;
@@ -261,7 +262,7 @@ describe("Set", () => {
             let validateIconUriStub = sandbox.stub(Set, "validateIconUri");
 
             // act
-            Set.validateJSON(set);
+            Set.validateSet(set);
         
             // assert
             expect(validateIconUriStub.called).to.be.true;
@@ -293,7 +294,7 @@ describe("Set", () => {
 
             // act
             try {
-                Set.validateJSON(set);
+                Set.validateSet(set);
             }
             catch (e) {
                 errorThrown = true;
@@ -656,7 +657,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'archenemy'", () => {
             // arrange
-            let setType = "archenemy";
+            let setType = SetType.Archenemy;
             let errorOccurred = false;
 
             // act
@@ -673,7 +674,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'box'", () => {
             // arrange
-            let setType = "box";
+            let setType = SetType.Box;
             let errorOccurred = false;
 
             // act
@@ -690,7 +691,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'commander'", () => {
             // arrange
-            let setType = "commander";
+            let setType = SetType.Commander;
             let errorOccurred = false;
 
             // act
@@ -707,7 +708,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'conspiracy'", () => {
             // arrange
-            let setType = "conspiracy";
+            let setType = SetType.Conspiracy;
             let errorOccurred = false;
 
             // act
@@ -724,7 +725,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'core'", () => {
             // arrange
-            let setType = "core";
+            let setType = SetType.Core;
             let errorOccurred = false;
 
             // act
@@ -741,7 +742,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'duel_deck'", () => {
             // arrange
-            let setType = "duel_deck";
+            let setType = SetType.DuelDeck;
             let errorOccurred = false;
 
             // act
@@ -758,7 +759,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'expansion'", () => {
             // arrange
-            let setType = "expansion";
+            let setType = SetType.Expansion;
             let errorOccurred = false;
 
             // act
@@ -775,7 +776,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'from_the_vault'", () => {
             // arrange
-            let setType = "from_the_vault";
+            let setType = SetType.FromTheVault;
             let errorOccurred = false;
 
             // act
@@ -792,7 +793,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'funny'", () => {
             // arrange
-            let setType = "funny";
+            let setType = SetType.Funny;
             let errorOccurred = false;
 
             // act
@@ -809,7 +810,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'masterpiece'", () => {
             // arrange
-            let setType = "masterpiece";
+            let setType = SetType.Masterpiece;
             let errorOccurred = false;
 
             // act
@@ -826,7 +827,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'masters'", () => {
             // arrange
-            let setType = "masters";
+            let setType = SetType.Masters;
             let errorOccurred = false;
 
             // act
@@ -843,7 +844,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'memorabilia'", () => {
             // arrange
-            let setType = "memorabilia";
+            let setType = SetType.Memorabilia;
             let errorOccurred = false;
 
             // act
@@ -860,7 +861,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'planechase'", () => {
             // arrange
-            let setType = "planechase";
+            let setType = SetType.Planechase;
             let errorOccurred = false;
 
             // act
@@ -877,7 +878,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'premium_deck'", () => {
             // arrange
-            let setType = "premium_deck";
+            let setType = SetType.PremiumDeck;
             let errorOccurred = false;
 
             // act
@@ -894,7 +895,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'promo'", () => {
             // arrange
-            let setType = "promo";
+            let setType = SetType.Promo;
             let errorOccurred = false;
 
             // act
@@ -911,7 +912,7 @@ describe("Set", () => {
 
         it("should validate set_type as 'starter'", () => {
             // arrange
-            let setType = "starter";
+            let setType = SetType.Starter;
             let errorOccurred = false;
 
             // act
@@ -928,7 +929,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'token'", () => {
             // arrange
-            let setType = "token";
+            let setType = SetType.Token;
             let errorOccurred = false;
 
             // act
@@ -945,7 +946,7 @@ describe("Set", () => {
         
         it("should validate set_type as 'vanguard'", () => {
             // arrange
-            let setType = "vanguard";
+            let setType = SetType.Vanguard;
             let errorOccurred = false;
 
             // act
@@ -965,6 +966,23 @@ describe("Set", () => {
         it("should invalidate an undefined card_count", () => {
             // arrange
             let cardCount;
+            let errorOccurred = false;
+
+            // act
+            try {
+                Set.validateCardCount(cardCount);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+        
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+        
+        it("should invalidate a non-number value", () => {
+            // arrange
+            let cardCount = "error";
             let errorOccurred = false;
 
             // act
@@ -1208,6 +1226,24 @@ describe("Set", () => {
     });
     
     describe("icon_uri", () => {
+        
+        it("should allow a blank icon_uri", () => {
+            // arrange
+            let iconUri;
+            let errorOccurred = false;
+
+            // act
+            try {
+                Set.validateIconUri(iconUri);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+        
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
         it("should invalidate an empty icon_uri", () => {
             // arrange
             let iconUri = "";

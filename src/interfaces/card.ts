@@ -16,23 +16,7 @@ export interface ICard {
      * @type {?string[]}
      * @memberof ICard
      */
-    multiverse_ids: string[];
-
-    /**
-     * The identifier of this card's Magic Online ID, if it exists
-     *
-     * @type {string}
-     * @memberof ICard
-     */
-    mtgo_id: string;
-
-    /**
-     * The identifier of the foil version of this card's Magic Online ID, if it exists
-     *
-     * @type {string}
-     * @memberof ICard
-     */
-    mtgo_foil_id: string;
+    multiverse_ids: number[];
 
     /**
      * The full-text name of this card
@@ -211,12 +195,12 @@ export interface ICard {
     collector_number: string;
 
     /**
-     * A URI that points to a PNG image of this card on Scryfall
+     * A URI that points to a PNG image of this card
      *
      * @type {?string}
      * @memberof ICard
      */
-    scryfall_image_uri: string;
+    image_uri: string;
 
     /**
      * Returns if this card is a reprint or not
@@ -232,7 +216,7 @@ export interface ICard {
      * @type {boolean}
      * @memberof ICard
      */
-    digital: boolean;
+    is_digital: boolean;
 
     /**
      * The rarity of the card
@@ -336,7 +320,7 @@ export interface ICard {
      * @type {string}
      * @memberof ICard
      */
-    usd: string;
+    usd_price: string;
 
     /**
      * The current value of this card in tix
@@ -344,7 +328,7 @@ export interface ICard {
      * @type {string}
      * @memberof ICard
      */
-    tix: string;
+    tix_price: string;
 
     /**
      * The current value of this card in EUR
@@ -352,7 +336,7 @@ export interface ICard {
      * @type {string}
      * @memberof ICard
      */
-    eur: string;
+    eur_price: string;
 
     /**
      * An object representing related links to this card

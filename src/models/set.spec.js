@@ -4,6 +4,7 @@ require("mocha");
 var chai_1 = require("chai");
 var sinon = require("sinon");
 var set_1 = require("./set");
+var enums_1 = require("../enums");
 var sandbox;
 beforeEach(function () {
     sandbox = sinon.sandbox.create();
@@ -12,7 +13,7 @@ afterEach(function () {
     sandbox.restore();
 });
 describe("Set", function () {
-    describe("validateJSON", function () {
+    describe("validateSet", function () {
         it("should validate set_code", function () {
             var set = {
                 set_code: "ust",
@@ -28,7 +29,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateSetCodeStub = sandbox.stub(set_1.Set, "validateSetCode");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateSetCodeStub.called).to.be.true;
             validateSetCodeStub.restore();
         });
@@ -47,7 +48,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateSetNameStub = sandbox.stub(set_1.Set, "validateSetName");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateSetNameStub.called).to.be.true;
             validateSetNameStub.restore();
         });
@@ -66,7 +67,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateReleaseDateStub = sandbox.stub(set_1.Set, "validateReleaseDate");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateReleaseDateStub.called).to.be.true;
             validateReleaseDateStub.restore();
         });
@@ -85,7 +86,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateSetTypeStub = sandbox.stub(set_1.Set, "validateSetType");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateSetTypeStub.called).to.be.true;
             validateSetTypeStub.restore();
         });
@@ -104,7 +105,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateCardCountStub = sandbox.stub(set_1.Set, "validateCardCount");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateCardCountStub.called).to.be.true;
             validateCardCountStub.restore();
         });
@@ -123,7 +124,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateParentSetCodeStub = sandbox.stub(set_1.Set, "validateParentSetCode");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateParentSetCodeStub.called).to.be.true;
             validateParentSetCodeStub.restore();
         });
@@ -142,7 +143,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateBlockCodeStub = sandbox.stub(set_1.Set, "validateBlockCode");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateBlockCodeStub.called).to.be.true;
             validateBlockCodeStub.restore();
         });
@@ -161,7 +162,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateBlockNameStub = sandbox.stub(set_1.Set, "validateBlockName");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateBlockNameStub.called).to.be.true;
             validateBlockNameStub.restore();
         });
@@ -180,7 +181,7 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateIconUriStub = sandbox.stub(set_1.Set, "validateIconUri");
-            set_1.Set.validateJSON(set);
+            set_1.Set.validateSet(set);
             chai_1.expect(validateIconUriStub.called).to.be.true;
             validateIconUriStub.restore();
         });
@@ -203,7 +204,7 @@ describe("Set", function () {
                 throw new Error("This is an error");
             });
             try {
-                set_1.Set.validateJSON(set);
+                set_1.Set.validateSet(set);
             }
             catch (e) {
                 errorThrown = true;
@@ -440,7 +441,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.true;
         });
         it("should validate set_type as 'archenemy'", function () {
-            var setType = "archenemy";
+            var setType = enums_1.SetType.Archenemy;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -451,7 +452,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'box'", function () {
-            var setType = "box";
+            var setType = enums_1.SetType.Box;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -462,7 +463,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'commander'", function () {
-            var setType = "commander";
+            var setType = enums_1.SetType.Commander;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -473,7 +474,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'conspiracy'", function () {
-            var setType = "conspiracy";
+            var setType = enums_1.SetType.Conspiracy;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -484,7 +485,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'core'", function () {
-            var setType = "core";
+            var setType = enums_1.SetType.Core;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -495,7 +496,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'duel_deck'", function () {
-            var setType = "duel_deck";
+            var setType = enums_1.SetType.DuelDeck;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -506,7 +507,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'expansion'", function () {
-            var setType = "expansion";
+            var setType = enums_1.SetType.Expansion;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -517,7 +518,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'from_the_vault'", function () {
-            var setType = "from_the_vault";
+            var setType = enums_1.SetType.FromTheVault;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -528,7 +529,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'funny'", function () {
-            var setType = "funny";
+            var setType = enums_1.SetType.Funny;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -539,7 +540,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'masterpiece'", function () {
-            var setType = "masterpiece";
+            var setType = enums_1.SetType.Masterpiece;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -550,7 +551,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'masters'", function () {
-            var setType = "masters";
+            var setType = enums_1.SetType.Masters;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -561,7 +562,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'memorabilia'", function () {
-            var setType = "memorabilia";
+            var setType = enums_1.SetType.Memorabilia;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -572,7 +573,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'planechase'", function () {
-            var setType = "planechase";
+            var setType = enums_1.SetType.Planechase;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -583,7 +584,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'premium_deck'", function () {
-            var setType = "premium_deck";
+            var setType = enums_1.SetType.PremiumDeck;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -594,7 +595,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'promo'", function () {
-            var setType = "promo";
+            var setType = enums_1.SetType.Promo;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -605,7 +606,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'starter'", function () {
-            var setType = "starter";
+            var setType = enums_1.SetType.Starter;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -616,7 +617,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'token'", function () {
-            var setType = "token";
+            var setType = enums_1.SetType.Token;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -627,7 +628,7 @@ describe("Set", function () {
             chai_1.expect(errorOccurred).to.be.false;
         });
         it("should validate set_type as 'vanguard'", function () {
-            var setType = "vanguard";
+            var setType = enums_1.SetType.Vanguard;
             var errorOccurred = false;
             try {
                 set_1.Set.validateSetType(setType);
@@ -641,6 +642,17 @@ describe("Set", function () {
     describe("card_count", function () {
         it("should invalidate an undefined card_count", function () {
             var cardCount;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateCardCount(cardCount);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.true;
+        });
+        it("should invalidate a non-number value", function () {
+            var cardCount = "error";
             var errorOccurred = false;
             try {
                 set_1.Set.validateCardCount(cardCount);
@@ -801,6 +813,17 @@ describe("Set", function () {
         });
     });
     describe("icon_uri", function () {
+        it("should allow a blank icon_uri", function () {
+            var iconUri;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIconUri(iconUri);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
         it("should invalidate an empty icon_uri", function () {
             var iconUri = "";
             var errorOccurred = false;
