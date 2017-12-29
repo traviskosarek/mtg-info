@@ -2,28 +2,26 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Datastore = require("@google-cloud/datastore");
 var models_1 = require("./models");
-var API = (function () {
-    function API() {
+var SetAPI = (function () {
+    function SetAPI() {
         this.projectId = "reaper-grames";
-        this.card = "card";
-        this.set = "set";
+        this.kind = "set";
     }
-    API.instance = function () {
+    SetAPI.instance = function () {
         if (this.singleton === undefined) {
             this.singleton = new this();
         }
         return this.singleton;
     };
-    API.prototype.putSet = function (request, response) {
+    SetAPI.prototype.putSet = function (request, response) {
         try {
-            var kind = this.set;
             var validSet = models_1.Set.createSet(request.body);
             this.datastore = Datastore({
                 projectId: this.projectId
             });
             this.datastore
                 .upsert({
-                key: this.datastore.key([kind, validSet.set_code]),
+                key: this.datastore.key([this.kind, validSet.set_code]),
                 data: validSet
             })
                 .then(function () {
@@ -46,12 +44,11 @@ var API = (function () {
             });
         }
     };
-    API.prototype.putSets = function (request, response) {
+    SetAPI.prototype.putSets = function (request, response) {
         var _this = this;
         try {
             var sets = request.body;
             if (sets instanceof Array && sets.length > 0) {
-                var kind_1 = this.set;
                 var validSets_1 = [];
                 this.datastore = Datastore({
                     projectId: this.projectId
@@ -59,7 +56,7 @@ var API = (function () {
                 sets.forEach(function (set) {
                     var validSet = models_1.Set.createSet(set);
                     validSets_1.push({
-                        key: _this.datastore.key([kind_1, validSet.set_code]),
+                        key: _this.datastore.key([_this.kind, validSet.set_code]),
                         data: validSet
                     });
                 });
@@ -92,17 +89,16 @@ var API = (function () {
             });
         }
     };
-    API.prototype.getSet = function (request, response) {
+    SetAPI.prototype.getSet = function (request, response) {
         try {
             var set = request.body;
-            var kind = this.set;
             var set_code_1 = set.set_code;
             models_1.Set.validateSetCode(set_code_1);
             this.datastore = Datastore({
                 projectId: this.projectId
             });
             this.datastore
-                .get(this.datastore.key([kind, set.set_code]))
+                .get(this.datastore.key([this.kind, set.set_code]))
                 .then(function (results) {
                 if (results[0] !== undefined) {
                     response.status(200).json({
@@ -132,15 +128,14 @@ var API = (function () {
             });
         }
     };
-    API.prototype.getSets = function (request, response) {
+    SetAPI.prototype.getSets = function (request, response) {
         try {
             var set = request.body;
-            var kind = this.set;
             this.datastore = Datastore({
                 projectId: this.projectId
             });
             var noFilters = true;
-            var query = this.datastore.createQuery(kind);
+            var query = this.datastore.createQuery(this.kind);
             if (set.block_code !== undefined) {
                 models_1.Set.validateBlockCode(set.block_code);
                 query = query.filter("block_code", "=", set.block_code).order("block_code");
@@ -222,45 +217,7 @@ var API = (function () {
             });
         }
     };
-    API.prototype.putCard = function (request, response) {
-        try {
-            var kind = this.card;
-            var validCard = models_1.Card.createCard(request.body);
-            this.datastore = Datastore({
-                projectId: this.projectId
-            });
-            this.datastore
-                .upsert({
-                key: this.datastore.key([kind, validCard.set_code]),
-                data: validCard
-            })
-                .then(function () {
-                response.status(200).json({
-                    status: 200,
-                    message: "Success"
-                });
-            })
-                .catch(function (err) {
-                response.status(500).json({
-                    status: 500,
-                    message: "Save unsuccessful, please try again later"
-                });
-            });
-        }
-        catch (e) {
-            response.status(400).json({
-                status: 400,
-                message: e.message
-            });
-        }
-    };
-    API.prototype.putCards = function (request, response) {
-    };
-    API.prototype.getCard = function (request, response) {
-    };
-    API.prototype.getCards = function (request, response) {
-    };
-    return API;
+    return SetAPI;
 }());
-exports.API = API;
-//# sourceMappingURL=api.js.map
+exports.SetAPI = SetAPI;
+//# sourceMappingURL=set-api.js.map

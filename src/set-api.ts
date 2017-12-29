@@ -1,14 +1,13 @@
 import * as Datastore from "@google-cloud/datastore";
 import { Request, Response } from "express";
 
-import { Set, Card } from "./models";
-import { ISet, ICard } from "./interfaces";
+import { Set } from "./models";
+import { ISet } from "./interfaces";
 
-export class API {
-    private static singleton: API;
+export class SetAPI {
+    private static singleton: SetAPI;
     private projectId = "reaper-grames";
-    private card = "card";
-    private set = "set";
+    private kind = "set";
 
     private datastore: Datastore;
 
@@ -16,7 +15,7 @@ export class API {
         // do nothing
     }
 
-    public static instance(): API {
+    public static instance(): SetAPI {
         if (this.singleton === undefined) {
             this.singleton = new this();
         }
@@ -25,7 +24,6 @@ export class API {
 
     public putSet(request: Request, response: Response) {
         try {
-            let kind = this.set;
 
             let validSet = Set.createSet(request.body);
             
@@ -35,7 +33,7 @@ export class API {
 
             this.datastore
                 .upsert({
-                    key: this.datastore.key([kind, validSet.set_code]),
+                    key: this.datastore.key([this.kind, validSet.set_code]),
                     data: validSet
                 })
                 .then(() => {
@@ -62,7 +60,6 @@ export class API {
         try {
             let sets = request.body;
             if (sets instanceof Array && sets.length > 0) {
-                let kind = this.set;
                 let validSets = [];
 
                 this.datastore = Datastore({
@@ -72,7 +69,7 @@ export class API {
                 sets.forEach((set) => {
                     let validSet: ISet = Set.createSet(set);
                     validSets.push({
-                        key: this.datastore.key([kind, validSet.set_code]),
+                        key: this.datastore.key([this.kind, validSet.set_code]),
                         data: validSet
                     });
                 });
@@ -108,7 +105,6 @@ export class API {
     public getSet(request: Request, response: Response) {
         try {
             let set = request.body;
-            let kind = this.set;
 
             let set_code = set.set_code;
 
@@ -119,7 +115,7 @@ export class API {
             });
 
             this.datastore
-                .get(this.datastore.key([kind, set.set_code]))
+                .get(this.datastore.key([this.kind, set.set_code]))
                 .then((results) => {
                     if (results[0] !== undefined) {
                         response.status(200).json({
@@ -151,14 +147,13 @@ export class API {
     public getSets(request: Request, response: Response) {
         try {
             let set = request.body as ISet;
-            let kind = this.set;
 
             this.datastore = Datastore({
                 projectId: this.projectId
             });
 
             let noFilters = true;
-            let query = this.datastore.createQuery(kind);
+            let query = this.datastore.createQuery(this.kind);
 
             if (set.block_code !== undefined) {
                 Set.validateBlockCode(set.block_code);
@@ -241,52 +236,5 @@ export class API {
                 message: e.message
             });
         }
-    }
-
-    public putCard(request: Request, response: Response) {
-        try {
-            let kind = this.card;
-
-            let validCard = Card.createCard(request.body);
-            
-            this.datastore = Datastore({
-                projectId: this.projectId
-            });
-
-            this.datastore
-                .upsert({
-                    key: this.datastore.key([kind, validCard.set_code]),
-                    data: validCard
-                })
-                .then(() => {
-                    response.status(200).json({
-                        status: 200,
-                        message: "Success"
-                    });
-                })
-                .catch((err) => {
-                    response.status(500).json({
-                        status: 500,
-                        message: "Save unsuccessful, please try again later"
-                    });
-                });
-        } catch (e) {
-            response.status(400).json({
-                status: 400,
-                message: e.message
-            });
-        }
-    }
-
-    public putCards(request: Request, response: Response) {
-        //
-    }
-
-    public getCard(request: Request, response: Response) {
-        //
-    }
-
-    public getCards(request: Request, response: Response) {
-        //
     }
 }

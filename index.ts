@@ -1,33 +1,33 @@
-import { API } from "./src";
+import { SetAPI, CardAPI } from "./src";
 
 exports.putSet = (req, res) => {
-    API.instance().putSet(req, res);
+    SetAPI.instance().putSet(req, res);
 };
 
 exports.putSets = (req, res) => {
-    API.instance().putSets(req, res);
+    SetAPI.instance().putSets(req, res);
 };
 
 exports.getSet = (req, res) => {
-    API.instance().getSet(req, res);
+    SetAPI.instance().getSet(req, res);
 };
 
 exports.getSets = (req, res) => {
-    API.instance().getSets(req, res);
+    SetAPI.instance().getSets(req, res);
 };
 
 exports.putCard = (req, res) => {
-    API.instance().putCard(req, res);
+    CardAPI.instance().putCard(req, res);
 };
 
 exports.putCards = (req, res) => {
-    API.instance().putCards(req, res);
+    CardAPI.instance().putCards(req, res);
 };
 
 exports.getCard = (req, res) => {
-    API.instance().getCard(req, res);
+    CardAPI.instance().getCard(req, res);
 };
 
 exports.getCards = (req, res) => {
-    API.instance().getCards(req, res);
+    CardAPI.instance().getCards(req, res);
 };

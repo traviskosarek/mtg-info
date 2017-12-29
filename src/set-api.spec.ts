@@ -5,11 +5,10 @@ import { mockReq, mockRes } from "sinon-express-mock";
 let sinonStubPromise = require("sinon-stub-promise");
 sinonStubPromise(sinon);
 
-// import { Request, Response } from "express";
 import * as Datastore from "@google-cloud/datastore";
 import { Query } from "@google-cloud/datastore";
 
-import { API } from "./api";
+import { SetAPI } from "./set-api";
 import { Set } from "./models";
 
 let sandbox;
@@ -21,13 +20,13 @@ afterEach(function() {
     sandbox.restore();
 });
 
-describe("API", () => {
+describe("SetAPI", () => {
     describe("instance", () => {
         it("should create singleton instance", () => {
             // arrange
 
             // act
-            let instance = API.instance();
+            let instance = SetAPI.instance();
 
             // assert
             expect(instance).to.not.be.undefined;
@@ -37,8 +36,8 @@ describe("API", () => {
             // arrange
 
             // act
-            let originalInstance = API.instance();
-            let secondInstance = API.instance();
+            let originalInstance = SetAPI.instance();
+            let secondInstance = SetAPI.instance();
 
             // assert
             expect(originalInstance).to.be.equal(secondInstance);
@@ -69,7 +68,7 @@ describe("API", () => {
             let dataStoreStub = sandbox.stub(Datastore.prototype);
 
             // act
-            API.instance().putSet(request, response);
+            SetAPI.instance().putSet(request, response);
 
             // assert
             expect(validateSetStub.called).to.be.true;
@@ -93,7 +92,7 @@ describe("API", () => {
             let dataStoreStub = sandbox.stub(Datastore.prototype);
 
             // act
-            API.instance().putSet(request, response);
+            SetAPI.instance().putSet(request, response);
 
             // assert
             expect(response.status.called).to.be.true;
@@ -131,7 +130,7 @@ describe("API", () => {
                 .resolves();
 
             // act
-            API.instance().putSet(request, response);
+            SetAPI.instance().putSet(request, response);
 
             // assert
             expect(response.status.called).to.be.true;
@@ -169,7 +168,7 @@ describe("API", () => {
                 .rejects();
 
             // act
-            API.instance().putSet(request, response);
+            SetAPI.instance().putSet(request, response);
 
             // assert
             expect(response.status.called).to.be.true;
@@ -207,7 +206,7 @@ describe("API", () => {
             let datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
 
             // act
-            API.instance().putSets(request, response);
+            SetAPI.instance().putSets(request, response);
 
             // assert
             expect(datastoreUpsertStub.called).to.be.true;
@@ -228,7 +227,7 @@ describe("API", () => {
             let datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
 
             // act
-            API.instance().putSets(request, response);
+            SetAPI.instance().putSets(request, response);
 
             // assert
             expect(datastoreUpsertStub.called).to.be.false;
@@ -278,7 +277,7 @@ describe("API", () => {
             let datastoreUpsertStub = sandbox.stub(Datastore.prototype, "upsert");
 
             // act
-            API.instance().putSets(request, response);
+            SetAPI.instance().putSets(request, response);
 
             // assert
             expect(validateSetStub.called).to.be.true;
@@ -329,7 +328,7 @@ describe("API", () => {
                 .resolves();
 
             // act
-            API.instance().putSets(request, response);
+            SetAPI.instance().putSets(request, response);
 
             // assert
             expect(datastoreUpsertStub.called).to.be.true;
@@ -383,7 +382,7 @@ describe("API", () => {
                 .rejects();
 
             // act
-            API.instance().putSets(request, response);
+            SetAPI.instance().putSets(request, response);
 
             // assert
             expect(datastoreUpsertStub.called).to.be.true;
@@ -420,7 +419,7 @@ describe("API", () => {
                 .rejects();
 
             // act
-            API.instance().putSets(request, response);
+            SetAPI.instance().putSets(request, response);
 
             // assert
             expect(datastoreUpsertStub.called).to.be.false;
@@ -448,7 +447,7 @@ describe("API", () => {
             let datastoreGetStub = sandbox.stub(Datastore.prototype, "get");
 
             // act
-            API.instance().getSet(request, response);
+            SetAPI.instance().getSet(request, response);
 
             // assert
             expect(validateSetCodeStub.called).to.be.true;
@@ -474,7 +473,7 @@ describe("API", () => {
             let datastoreGetStub = sandbox.stub(Datastore.prototype, "get");
 
             // act
-            API.instance().getSet(request, response);
+            SetAPI.instance().getSet(request, response);
 
             // assert
             expect(validateSetCodeStub.called).to.be.true;
@@ -502,7 +501,7 @@ describe("API", () => {
 
             // act
             datastoreGetStub.returnsPromise().resolves([{}]);
-            API.instance().getSet(request, response);
+            SetAPI.instance().getSet(request, response);
 
             // assert
             expect(validateSetCodeStub.called).to.be.true;
@@ -529,7 +528,7 @@ describe("API", () => {
 
             // act
             datastoreGetStub.returnsPromise().resolves([]);
-            API.instance().getSet(request, response);
+            SetAPI.instance().getSet(request, response);
 
             // assert
             expect(validateSetCodeStub.called).to.be.true;
@@ -556,7 +555,7 @@ describe("API", () => {
 
             // act
             datastoreGetStub.returnsPromise().rejects();
-            API.instance().getSet(request, response);
+            SetAPI.instance().getSet(request, response);
 
             // assert
             expect(validateSetCodeStub.called).to.be.true;
@@ -588,7 +587,7 @@ describe("API", () => {
             let queryFilterStub = sandbox.stub(Query.prototype, "filter");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -628,7 +627,7 @@ describe("API", () => {
             let validateBlockCodeStub = sandbox.stub(Set, "validateBlockCode");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -675,7 +674,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -717,7 +716,7 @@ describe("API", () => {
             let validateBlockNameStub = sandbox.stub(Set, "validateBlockName");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -764,7 +763,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -806,7 +805,7 @@ describe("API", () => {
             let validateCardCountStub = sandbox.stub(Set, "validateCardCount");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -853,7 +852,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -895,7 +894,7 @@ describe("API", () => {
             let validateIconUriStub = sandbox.stub(Set, "validateIconUri");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -942,7 +941,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -984,7 +983,7 @@ describe("API", () => {
             let validateIsDigitalStub = sandbox.stub(Set, "validateIsDigital");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1032,7 +1031,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1074,7 +1073,7 @@ describe("API", () => {
             let validateIsFoilStub = sandbox.stub(Set, "validateIsFoil");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1122,7 +1121,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1164,7 +1163,7 @@ describe("API", () => {
             let validateParentSetCodeStub = sandbox.stub(Set, "validateParentSetCode");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1211,7 +1210,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1253,7 +1252,7 @@ describe("API", () => {
             let validateReleaseDateStub = sandbox.stub(Set, "validateReleaseDate");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1300,7 +1299,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1342,7 +1341,7 @@ describe("API", () => {
             let validateSetCodeStub = sandbox.stub(Set, "validateSetCode");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1389,7 +1388,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1431,7 +1430,7 @@ describe("API", () => {
             let validateSetNameStub = sandbox.stub(Set, "validateSetName");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1478,7 +1477,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1520,7 +1519,7 @@ describe("API", () => {
             let validateSetTypeStub = sandbox.stub(Set, "validateSetType");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1567,7 +1566,7 @@ describe("API", () => {
             });
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1612,7 +1611,7 @@ describe("API", () => {
             let validateSetTypeStub = sandbox.stub(Set, "validateSetType");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
@@ -1657,7 +1656,7 @@ describe("API", () => {
             let queryFilterStub = sandbox.stub(Query.prototype, "filter");
 
             // act
-            API.instance().getSets(request, response);
+            SetAPI.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
