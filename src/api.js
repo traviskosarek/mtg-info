@@ -5,6 +5,8 @@ var models_1 = require("./models");
 var API = (function () {
     function API() {
         this.projectId = "reaper-grames";
+        this.card = "card";
+        this.set = "set";
     }
     API.instance = function () {
         if (this.singleton === undefined) {
@@ -14,7 +16,7 @@ var API = (function () {
     };
     API.prototype.putSet = function (request, response) {
         try {
-            var kind = "set";
+            var kind = this.set;
             var validSet = models_1.Set.createSet(request.body);
             this.datastore = Datastore({
                 projectId: this.projectId
@@ -49,7 +51,7 @@ var API = (function () {
         try {
             var sets = request.body;
             if (sets instanceof Array && sets.length > 0) {
-                var kind_1 = "set";
+                var kind_1 = this.set;
                 var validSets_1 = [];
                 this.datastore = Datastore({
                     projectId: this.projectId
@@ -93,7 +95,7 @@ var API = (function () {
     API.prototype.getSet = function (request, response) {
         try {
             var set = request.body;
-            var kind = "set";
+            var kind = this.set;
             var set_code_1 = set.set_code;
             models_1.Set.validateSetCode(set_code_1);
             this.datastore = Datastore({
@@ -133,7 +135,7 @@ var API = (function () {
     API.prototype.getSets = function (request, response) {
         try {
             var set = request.body;
-            var kind = "set";
+            var kind = this.set;
             this.datastore = Datastore({
                 projectId: this.projectId
             });
@@ -222,7 +224,7 @@ var API = (function () {
     };
     API.prototype.putCard = function (request, response) {
         try {
-            var kind = "card";
+            var kind = this.card;
             var validCard = models_1.Card.createCard(request.body);
             this.datastore = Datastore({
                 projectId: this.projectId
