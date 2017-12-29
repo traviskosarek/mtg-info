@@ -13,8 +13,82 @@ afterEach(function () {
     sandbox.restore();
 });
 describe("Set", function () {
+    describe("createSet", function () {
+        it("should return validated set", function () {
+            var set = {
+                set_code: "ust",
+                set_name: "Unstable",
+                release_date: "2017-12-08",
+                set_type: "funny",
+                card_count: 268,
+                parent_set_code: undefined,
+                block_code: undefined,
+                block_name: undefined,
+                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
+                is_digital: false,
+                is_foil: false
+            };
+            var validateSetStub = sandbox.stub(set_1.Set, "validateSet");
+            var returnedSet = set_1.Set.createSet(set);
+            chai_1.expect(validateSetStub.called).to.be.true;
+            chai_1.expect(returnedSet).to.deep.equal(set);
+            validateSetStub.restore();
+        });
+        it("should ignore additional values in validated set", function () {
+            var set = {
+                set_code: "ust",
+                set_name: "Unstable",
+                release_date: "2017-12-08",
+                set_type: "funny",
+                card_count: 268,
+                parent_set_code: undefined,
+                block_code: undefined,
+                block_name: undefined,
+                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
+                is_digital: false,
+                is_foil: false,
+                extra_value1: true,
+                extra_value2: "test"
+            };
+            var validateSetStub = sandbox.stub(set_1.Set, "validateSet");
+            var returnedSet = set_1.Set.createSet(set);
+            chai_1.expect(validateSetStub.called).to.be.true;
+            chai_1.expect(returnedSet.extra_value1).to.be.undefined;
+            chai_1.expect(returnedSet.extra_value2).to.be.undefined;
+            validateSetStub.restore();
+        });
+        it("should throw errors", function () {
+            var set = {
+                set_code: "ust",
+                set_name: "Unstable",
+                release_date: "2017-12-08",
+                set_type: "funny",
+                card_count: 268,
+                parent_set_code: undefined,
+                block_code: undefined,
+                block_name: undefined,
+                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
+                is_digital: false,
+                is_foil: false
+            };
+            var validateSetStub = sandbox.stub(set_1.Set, "validateSet").callsFake(function () {
+                throw new Error("validate set error");
+            });
+            var errorOccurred = false;
+            var returnedSet;
+            try {
+                returnedSet = set_1.Set.createSet(set);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(returnedSet).to.be.undefined;
+            chai_1.expect(errorOccurred).to.be.true;
+            validateSetStub.restore();
+        });
+    });
     describe("validateSet", function () {
-        it("should validate set_code", function () {
+        it("should validate Set fields", function () {
             var set = {
                 set_code: "ust",
                 set_name: "Unstable",
@@ -29,160 +103,38 @@ describe("Set", function () {
                 is_foil: false
             };
             var validateSetCodeStub = sandbox.stub(set_1.Set, "validateSetCode");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateSetCodeStub.called).to.be.true;
-            validateSetCodeStub.restore();
-        });
-        it("should validate set_name", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateSetNameStub = sandbox.stub(set_1.Set, "validateSetName");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateSetNameStub.called).to.be.true;
-            validateSetNameStub.restore();
-        });
-        it("should validate release_date", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateReleaseDateStub = sandbox.stub(set_1.Set, "validateReleaseDate");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateReleaseDateStub.called).to.be.true;
-            validateReleaseDateStub.restore();
-        });
-        it("should validate set_type", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateSetTypeStub = sandbox.stub(set_1.Set, "validateSetType");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateSetTypeStub.called).to.be.true;
-            validateSetTypeStub.restore();
-        });
-        it("should validate card_count", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateCardCountStub = sandbox.stub(set_1.Set, "validateCardCount");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateCardCountStub.called).to.be.true;
-            validateCardCountStub.restore();
-        });
-        it("should validate parent_set_code", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateParentSetCodeStub = sandbox.stub(set_1.Set, "validateParentSetCode");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateParentSetCodeStub.called).to.be.true;
-            validateParentSetCodeStub.restore();
-        });
-        it("should validate block_code", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
+            var validateIsDigitalStub = sandbox.stub(set_1.Set, "validateIsDigital");
+            var validateIsFoilStub = sandbox.stub(set_1.Set, "validateIsFoil");
             var validateBlockCodeStub = sandbox.stub(set_1.Set, "validateBlockCode");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateBlockCodeStub.called).to.be.true;
-            validateBlockCodeStub.restore();
-        });
-        it("should validate block_name", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateBlockNameStub = sandbox.stub(set_1.Set, "validateBlockName");
-            set_1.Set.validateSet(set);
-            chai_1.expect(validateBlockNameStub.called).to.be.true;
-            validateBlockNameStub.restore();
-        });
-        it("should validate icon_uri", function () {
-            var set = {
-                set_code: "ust",
-                set_name: "Unstable",
-                release_date: "2017-12-08",
-                set_type: "funny",
-                card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
-                icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
-                is_digital: false,
-                is_foil: false
-            };
             var validateIconUriStub = sandbox.stub(set_1.Set, "validateIconUri");
             set_1.Set.validateSet(set);
+            chai_1.expect(validateSetCodeStub.called).to.be.true;
+            chai_1.expect(validateSetNameStub.called).to.be.true;
+            chai_1.expect(validateReleaseDateStub.called).to.be.true;
+            chai_1.expect(validateSetTypeStub.called).to.be.true;
+            chai_1.expect(validateCardCountStub.called).to.be.true;
+            chai_1.expect(validateParentSetCodeStub.called).to.be.true;
+            chai_1.expect(validateIsDigitalStub.called).to.be.true;
+            chai_1.expect(validateIsFoilStub.called).to.be.true;
+            chai_1.expect(validateBlockCodeStub.called).to.be.true;
+            chai_1.expect(validateBlockNameStub.called).to.be.true;
             chai_1.expect(validateIconUriStub.called).to.be.true;
+            validateSetCodeStub.restore();
+            validateSetNameStub.restore();
+            validateReleaseDateStub.restore();
+            validateSetTypeStub.restore();
+            validateCardCountStub.restore();
+            validateParentSetCodeStub.restore();
+            validateIsDigitalStub.restore();
+            validateIsFoilStub.restore();
+            validateBlockCodeStub.restore();
+            validateBlockNameStub.restore();
             validateIconUriStub.restore();
         });
         it("should throw errors", function () {
@@ -735,6 +687,98 @@ describe("Set", function () {
             var errorOccurred = false;
             try {
                 set_1.Set.validateParentSetCode(parentSetCode);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
+    });
+    describe("is_digital", function () {
+        it("should ignore if missing", function () {
+            var isDigital;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsDigital(isDigital);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
+        it("should error if not a boolean", function () {
+            var isDigital = "Magic: the Gathering";
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsDigital(isDigital);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.true;
+        });
+        it("should validate if true", function () {
+            var isDigital = true;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsDigital(isDigital);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
+        it("should validate if false", function () {
+            var isDigital = false;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsDigital(isDigital);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
+    });
+    describe("is_foil", function () {
+        it("should ignore if missing", function () {
+            var isFoil;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsFoil(isFoil);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
+        it("should error if not a boolean", function () {
+            var isFoil = "Magic: the Gathering";
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsFoil(isFoil);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.true;
+        });
+        it("should validate if true", function () {
+            var isFoil = true;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsFoil(isFoil);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            chai_1.expect(errorOccurred).to.be.false;
+        });
+        it("should validate if false", function () {
+            var isFoil = false;
+            var errorOccurred = false;
+            try {
+                set_1.Set.validateIsFoil(isFoil);
             }
             catch (e) {
                 errorOccurred = true;

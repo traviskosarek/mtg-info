@@ -352,5 +352,5 @@ export interface ICard {
      * @type {ICardPurchaseLinks}
      * @memberof ICard
      */
-    purchase_uris: ICardPurchaseLinks;
+    purchase_links: ICardPurchaseLinks;
 }

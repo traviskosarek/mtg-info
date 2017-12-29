@@ -19,7 +19,7 @@ export interface ICardRelatedLinks {
      * @type {string}
      * @memberof ICardRelatedLinks
      */
-    tcgplayer_decks: string;
+    tcgplayer: string;
 
     /**
      * A URI linking to this card on EDHREC

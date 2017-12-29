@@ -71,7 +71,7 @@ describe("Utility", () => {
             expect(result).to.be.true;
         });
 
-        it("should allow strings with spaces", () => {
+        it("should not allow strings with spaces", () => {
             // arrange
             let testString = " ";
 
@@ -79,7 +79,7 @@ describe("Utility", () => {
             let result = Utility.isAlphaNumeric(testString);
 
             // assert
-            expect(result).to.be.true;
+            expect(result).to.be.false;
         });
 
         it("should not allow strings with punctuation", () => {
@@ -92,6 +92,5 @@ describe("Utility", () => {
             // assert
             expect(result).to.be.false;
         });
-        
     });
 });

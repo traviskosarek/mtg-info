@@ -760,8 +760,10 @@ describe("API", function () {
             var queryFilterStub = sandbox.stub(datastore_1.Query.prototype, "filter").callsFake(function () {
                 return new datastore_1.Query();
             });
+            var validateIsDigitalStub = sandbox.stub(models_1.Set, "validateIsDigital");
             api_1.API.instance().getSets(request, response);
             chai_1.expect(datastoreCreateQueryStub.called).to.be.true;
+            chai_1.expect(validateIsDigitalStub.called).to.be.true;
             chai_1.expect(queryFilterStub.called).to.be.true;
             chai_1.expect(queryFilterStub.getCall(0).args[0]).to.be.equal("is_digital");
             chai_1.expect(queryFilterStub.getCall(0).args[1]).to.be.equal("=");
@@ -776,6 +778,42 @@ describe("API", function () {
             datastoreRunQueryStub.restore();
             queryOrderStub.restore();
             queryFilterStub.restore();
+            validateIsDigitalStub.restore();
+        });
+        it("should invalidate and return error on is_digital", function () {
+            var body = {
+                body: {
+                    is_digital: false
+                }
+            };
+            var request = sinon_express_mock_1.mockReq(body);
+            var response = sinon_express_mock_1.mockRes();
+            var datastoreCreateQueryStub = sandbox.stub(Datastore.prototype, "createQuery").callsFake(function (kind) {
+                return new datastore_1.Query();
+            });
+            var datastoreRunQueryStub = sandbox.stub(Datastore.prototype, "runQuery");
+            datastoreRunQueryStub.returnsPromise().resolves();
+            var queryOrderStub = sandbox.stub(datastore_1.Query.prototype, "order");
+            var queryFilterStub = sandbox.stub(datastore_1.Query.prototype, "filter").callsFake(function () {
+                return new datastore_1.Query();
+            });
+            var validateIsDigitalStub = sandbox.stub(models_1.Set, "validateIsDigital").callsFake(function () {
+                throw new Error("example error");
+            });
+            api_1.API.instance().getSets(request, response);
+            chai_1.expect(datastoreCreateQueryStub.called).to.be.true;
+            chai_1.expect(validateIsDigitalStub.called).to.be.true;
+            chai_1.expect(queryFilterStub.called).to.be.false;
+            chai_1.expect(queryOrderStub.called).to.be.false;
+            chai_1.expect(datastoreRunQueryStub.called).to.be.false;
+            chai_1.expect(response.status.called).to.be.true;
+            chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(400);
+            chai_1.expect(response.json.called).to.be.true;
+            datastoreCreateQueryStub.restore();
+            datastoreRunQueryStub.restore();
+            queryOrderStub.restore();
+            queryFilterStub.restore();
+            validateIsDigitalStub.restore();
         });
         it("should validate and filter based on is_foil", function () {
             var body = {
@@ -794,8 +832,10 @@ describe("API", function () {
             var queryFilterStub = sandbox.stub(datastore_1.Query.prototype, "filter").callsFake(function () {
                 return new datastore_1.Query();
             });
+            var validateIsFoilStub = sandbox.stub(models_1.Set, "validateIsFoil");
             api_1.API.instance().getSets(request, response);
             chai_1.expect(datastoreCreateQueryStub.called).to.be.true;
+            chai_1.expect(validateIsFoilStub.called).to.be.true;
             chai_1.expect(queryFilterStub.called).to.be.true;
             chai_1.expect(queryFilterStub.getCall(0).args[0]).to.be.equal("is_foil");
             chai_1.expect(queryFilterStub.getCall(0).args[1]).to.be.equal("=");
@@ -810,6 +850,42 @@ describe("API", function () {
             datastoreRunQueryStub.restore();
             queryOrderStub.restore();
             queryFilterStub.restore();
+            validateIsFoilStub.restore();
+        });
+        it("should invalidate and return error on is_foil", function () {
+            var body = {
+                body: {
+                    is_foil: false
+                }
+            };
+            var request = sinon_express_mock_1.mockReq(body);
+            var response = sinon_express_mock_1.mockRes();
+            var datastoreCreateQueryStub = sandbox.stub(Datastore.prototype, "createQuery").callsFake(function (kind) {
+                return new datastore_1.Query();
+            });
+            var datastoreRunQueryStub = sandbox.stub(Datastore.prototype, "runQuery");
+            datastoreRunQueryStub.returnsPromise().resolves();
+            var queryOrderStub = sandbox.stub(datastore_1.Query.prototype, "order");
+            var queryFilterStub = sandbox.stub(datastore_1.Query.prototype, "filter").callsFake(function () {
+                return new datastore_1.Query();
+            });
+            var validateIsFoilStub = sandbox.stub(models_1.Set, "validateIsFoil").callsFake(function () {
+                throw new Error("example error");
+            });
+            api_1.API.instance().getSets(request, response);
+            chai_1.expect(datastoreCreateQueryStub.called).to.be.true;
+            chai_1.expect(validateIsFoilStub.called).to.be.true;
+            chai_1.expect(queryFilterStub.called).to.be.false;
+            chai_1.expect(queryOrderStub.called).to.be.false;
+            chai_1.expect(datastoreRunQueryStub.called).to.be.false;
+            chai_1.expect(response.status.called).to.be.true;
+            chai_1.expect(response.status.getCall(0).args[0]).to.be.equal(400);
+            chai_1.expect(response.json.called).to.be.true;
+            datastoreCreateQueryStub.restore();
+            datastoreRunQueryStub.restore();
+            queryOrderStub.restore();
+            queryFilterStub.restore();
+            validateIsFoilStub.restore();
         });
         it("should validate and filter based on parent_set_code", function () {
             var body = {

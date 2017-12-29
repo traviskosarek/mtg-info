@@ -10,8 +10,7 @@ var Utility = (function () {
                 code = str.charCodeAt(i);
                 if (!(code >= 48 && code <= 57) &&
                     !(code >= 65 && code <= 90) &&
-                    !(code >= 97 && code <= 122) &&
-                    !(code === 32)) {
+                    !(code >= 97 && code <= 122)) {
                     return false;
                 }
             }

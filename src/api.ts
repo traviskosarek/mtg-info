@@ -23,19 +23,18 @@ export class API {
 
     public putSet(request: Request, response: Response) {
         try {
-            let set = request.body;
             let kind = "set";
 
-            Set.validateSet(set as ISet);
-
+            let validSet = Set.createSet(request.body);
+            
             this.datastore = Datastore({
                 projectId: this.projectId
             });
 
             this.datastore
                 .upsert({
-                    key: this.datastore.key([kind, set.set_code]),
-                    data: set
+                    key: this.datastore.key([kind, validSet.set_code]),
+                    data: validSet
                 })
                 .then(() => {
                     response.status(200).json({
@@ -69,10 +68,10 @@ export class API {
                 });
 
                 sets.forEach((set) => {
-                    Set.validateSet(set as ISet);
+                    let validSet: ISet = Set.createSet(set);
                     validSets.push({
-                        key: this.datastore.key([kind, set.set_code]),
-                        data: set
+                        key: this.datastore.key([kind, validSet.set_code]),
+                        data: validSet
                     });
                 });
 
@@ -180,10 +179,12 @@ export class API {
                 noFilters = false;
             }
             if (set.is_digital !== undefined) {
+                Set.validateIsDigital(set.is_digital);
                 query = query.filter("is_digital", "=", set.is_digital).order("is_digital");
                 noFilters = false;
             }
             if (set.is_foil !== undefined) {
+                Set.validateIsFoil(set.is_foil);
                 query = query.filter("is_foil", "=", set.is_foil).order("is_foil");
                 noFilters = false;
             }

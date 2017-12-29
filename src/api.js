@@ -14,16 +14,15 @@ var API = (function () {
     };
     API.prototype.putSet = function (request, response) {
         try {
-            var set = request.body;
             var kind = "set";
-            models_1.Set.validateSet(set);
+            var validSet = models_1.Set.createSet(request.body);
             this.datastore = Datastore({
                 projectId: this.projectId
             });
             this.datastore
                 .upsert({
-                key: this.datastore.key([kind, set.set_code]),
-                data: set
+                key: this.datastore.key([kind, validSet.set_code]),
+                data: validSet
             })
                 .then(function () {
                 response.status(200).json({
@@ -56,10 +55,10 @@ var API = (function () {
                     projectId: this.projectId
                 });
                 sets.forEach(function (set) {
-                    models_1.Set.validateSet(set);
+                    var validSet = models_1.Set.createSet(set);
                     validSets_1.push({
-                        key: _this.datastore.key([kind_1, set.set_code]),
-                        data: set
+                        key: _this.datastore.key([kind_1, validSet.set_code]),
+                        data: validSet
                     });
                 });
                 this.datastore
@@ -161,10 +160,12 @@ var API = (function () {
                 noFilters = false;
             }
             if (set.is_digital !== undefined) {
+                models_1.Set.validateIsDigital(set.is_digital);
                 query = query.filter("is_digital", "=", set.is_digital).order("is_digital");
                 noFilters = false;
             }
             if (set.is_foil !== undefined) {
+                models_1.Set.validateIsFoil(set.is_foil);
                 query = query.filter("is_foil", "=", set.is_foil).order("is_foil");
                 noFilters = false;
             }

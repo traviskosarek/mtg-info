@@ -14,7 +14,7 @@
         "interface-name": [false],
         "jsdoc-format": true,
         "label-position": true,
-        "max-line-length": [true, 200],
+        "max-line-length": [true, 300],
         "member-access": [true,
             "check-accessor",
             "check-constructor"

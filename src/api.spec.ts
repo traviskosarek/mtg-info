@@ -981,12 +981,14 @@ describe("API", () => {
             let queryFilterStub = sandbox.stub(Query.prototype, "filter").callsFake(() => {
                 return new Query();
             });
+            let validateIsDigitalStub = sandbox.stub(Set, "validateIsDigital");
 
             // act
             API.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
+            expect(validateIsDigitalStub.called).to.be.true;
             expect(queryFilterStub.called).to.be.true;
             expect(queryFilterStub.getCall(0).args[0]).to.be.equal("is_digital");
             expect(queryFilterStub.getCall(0).args[1]).to.be.equal("=");
@@ -1003,6 +1005,51 @@ describe("API", () => {
             datastoreRunQueryStub.restore();
             queryOrderStub.restore();
             queryFilterStub.restore();
+            validateIsDigitalStub.restore();
+        });
+
+        it("should invalidate and return error on is_digital", () => {
+            // arrange
+            let body = {
+                body: {
+                    is_digital: false
+                }
+            };
+            let request = mockReq(body);
+            let response = mockRes();
+
+            let datastoreCreateQueryStub = sandbox.stub(Datastore.prototype, "createQuery").callsFake((kind) => {
+                return new Query();
+            });
+            let datastoreRunQueryStub = sandbox.stub(Datastore.prototype, "runQuery");
+            datastoreRunQueryStub.returnsPromise().resolves();
+            let queryOrderStub = sandbox.stub(Query.prototype, "order");
+            let queryFilterStub = sandbox.stub(Query.prototype, "filter").callsFake(() => {
+                return new Query();
+            });
+            let validateIsDigitalStub = sandbox.stub(Set, "validateIsDigital").callsFake(() => {
+                throw new Error("example error");
+            });
+
+            // act
+            API.instance().getSets(request, response);
+
+            // assert
+            expect(datastoreCreateQueryStub.called).to.be.true;
+            expect(validateIsDigitalStub.called).to.be.true;
+            expect(queryFilterStub.called).to.be.false;
+            expect(queryOrderStub.called).to.be.false;
+            expect(datastoreRunQueryStub.called).to.be.false;
+            expect(response.status.called).to.be.true;
+            expect(response.status.getCall(0).args[0]).to.be.equal(400);
+            expect(response.json.called).to.be.true;
+
+            // cleanup
+            datastoreCreateQueryStub.restore();
+            datastoreRunQueryStub.restore();
+            queryOrderStub.restore();
+            queryFilterStub.restore();
+            validateIsDigitalStub.restore();
         });
 
         it("should validate and filter based on is_foil", () => {
@@ -1024,12 +1071,14 @@ describe("API", () => {
             let queryFilterStub = sandbox.stub(Query.prototype, "filter").callsFake(() => {
                 return new Query();
             });
+            let validateIsFoilStub = sandbox.stub(Set, "validateIsFoil");
 
             // act
             API.instance().getSets(request, response);
 
             // assert
             expect(datastoreCreateQueryStub.called).to.be.true;
+            expect(validateIsFoilStub.called).to.be.true;
             expect(queryFilterStub.called).to.be.true;
             expect(queryFilterStub.getCall(0).args[0]).to.be.equal("is_foil");
             expect(queryFilterStub.getCall(0).args[1]).to.be.equal("=");
@@ -1046,6 +1095,51 @@ describe("API", () => {
             datastoreRunQueryStub.restore();
             queryOrderStub.restore();
             queryFilterStub.restore();
+            validateIsFoilStub.restore();
+        });
+
+        it("should invalidate and return error on is_foil", () => {
+            // arrange
+            let body = {
+                body: {
+                    is_foil: false
+                }
+            };
+            let request = mockReq(body);
+            let response = mockRes();
+
+            let datastoreCreateQueryStub = sandbox.stub(Datastore.prototype, "createQuery").callsFake((kind) => {
+                return new Query();
+            });
+            let datastoreRunQueryStub = sandbox.stub(Datastore.prototype, "runQuery");
+            datastoreRunQueryStub.returnsPromise().resolves();
+            let queryOrderStub = sandbox.stub(Query.prototype, "order");
+            let queryFilterStub = sandbox.stub(Query.prototype, "filter").callsFake(() => {
+                return new Query();
+            });
+            let validateIsFoilStub = sandbox.stub(Set, "validateIsFoil").callsFake(() => {
+                throw new Error("example error");
+            });
+
+            // act
+            API.instance().getSets(request, response);
+
+            // assert
+            expect(datastoreCreateQueryStub.called).to.be.true;
+            expect(validateIsFoilStub.called).to.be.true;
+            expect(queryFilterStub.called).to.be.false;
+            expect(queryOrderStub.called).to.be.false;
+            expect(datastoreRunQueryStub.called).to.be.false;
+            expect(response.status.called).to.be.true;
+            expect(response.status.getCall(0).args[0]).to.be.equal(400);
+            expect(response.json.called).to.be.true;
+
+            // cleanup
+            datastoreCreateQueryStub.restore();
+            datastoreRunQueryStub.restore();
+            queryOrderStub.restore();
+            queryFilterStub.restore();
+            validateIsFoilStub.restore();
         });
 
         it("should validate and filter based on parent_set_code", () => {

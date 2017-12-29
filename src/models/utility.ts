@@ -8,8 +8,7 @@ export class Utility {
                 if (
                     !(code >= 48 && code <= 57) && // numeric (0-9)
                     !(code >= 65 && code <= 90) && // upper alpha (A-Z)
-                    !(code >= 97 && code <= 122) && // lower alpha (a-z)
-                    !(code === 32) // space
+                    !(code >= 97 && code <= 122) // lower alpha (a-z)
                 ) {
                     return false;
                 }

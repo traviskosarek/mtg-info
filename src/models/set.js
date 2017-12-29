@@ -7,6 +7,23 @@ var utility_1 = require("./utility");
 var Set = (function () {
     function Set() {
     }
+    Set.createSet = function (set) {
+        this.validateSet(set);
+        var newSet = {
+            set_code: set.set_code,
+            set_name: set.set_name,
+            release_date: set.release_date,
+            set_type: set.set_type,
+            card_count: set.card_count,
+            parent_set_code: set.parent_set_code,
+            is_digital: set.is_digital,
+            is_foil: set.is_foil,
+            block_code: set.block_code,
+            block_name: set.block_name,
+            icon_uri: set.icon_uri
+        };
+        return newSet;
+    };
     Set.validateSet = function (set) {
         try {
             this.validateSetCode(set.set_code);
@@ -15,6 +32,8 @@ var Set = (function () {
             this.validateSetType(set.set_type);
             this.validateCardCount(set.card_count);
             this.validateParentSetCode(set.parent_set_code);
+            this.validateIsDigital(set.is_digital);
+            this.validateIsFoil(set.is_foil);
             this.validateBlockCode(set.block_code);
             this.validateBlockName(set.block_name);
             this.validateIconUri(set.icon_uri);
@@ -97,6 +116,16 @@ var Set = (function () {
         }
         else if (parentSetCode === "") {
             throw new Error("parent_set_code cannot be empty");
+        }
+    };
+    Set.validateIsDigital = function (isDigital) {
+        if (isDigital !== undefined && !(typeof (isDigital) === "boolean")) {
+            throw new Error("is_digital must be of type boolean *** is_digital = " + isDigital);
+        }
+    };
+    Set.validateIsFoil = function (isFoil) {
+        if (isFoil !== undefined && !(typeof (isFoil) === "boolean")) {
+            throw new Error("is_foil must be of type boolean *** is_foil = " + isFoil);
         }
     };
     Set.validateBlockCode = function (blockCode) {

@@ -1,10 +1,10 @@
-import { ICard } from "../interfaces";
-import { Set } from "./index";
-import { Layouts, Powers, Symbols, Loyalties, Colors } from "../enums";
-import { Toughnesses } from "../enums/toughnesses";
+import { ICard, ICardFace } from "../interfaces";
+import { Set, Utility } from "./index";
+import { Layouts, Powers, Symbols, Loyalties, Colors, Toughnesses, Rarities, Frames, Watermarks, BorderColors } from "../enums";
+import * as validUrl from "valid-url";
 
 export class Card {
-    public static validateCard(card: ICard) {
+    public static validateCard(card: any) {
         try {
             this.validateArtist(card.artist);
             this.validateBorderColor(card.border_color);
@@ -25,7 +25,7 @@ export class Card {
             this.validateIsColorshifted(card.is_colorshifted);
             this.validateIsDigital(card.is_digital);
             this.validateIsFullArt(card.is_full_art);
-            this.validateIsFutureShifted(card.is_futureshifted);
+            this.validateIsFutureshifted(card.is_futureshifted);
             this.validateIsReprint(card.is_reprint);
             this.validateIsReserved(card.is_reserved);
             this.validateIsTimeshifted(card.is_timeshifted);
@@ -505,115 +505,497 @@ export class Card {
         }
     }
 
-    public static validateRelatedCards(cards: any[]) {
-        //
+    public static validateRelatedCards(cards: any) {
+        if (cards !== undefined) {
+            if (!(cards instanceof Array)) {
+                throw new Error("related_cards must be an Array ** type of related_cards = " + typeof cards);
+            } else if (cards.length === 0) {
+                throw new Error("related_cards cannot be an empty Array");
+            } else {
+                cards.forEach((card) => {
+                    try {
+                        this.validateName(card.name);
+                        this.validateSetCode(card.set_code);
+                        this.validateCollectorNumber(card.collector_number);
+                    } catch (e) {
+                        throw new Error("Error in related_cards: " + e.message);
+                    }
+                });
+            }
+        }
     }
 
-    public static validateCardFaces(faces: any[]) {
-        //
+    public static validateCardFaces(faces: any) {
+        if (faces !== undefined) {
+            if (!(faces instanceof Array)) {
+                throw new Error("card_faces should be an Array *** card_faces = " + faces);
+            } else if (faces.length === 0) {
+                throw new Error("card_faces cannot be an empty Array");
+            } else {
+                faces.forEach((face) => {
+                    this.validateName(face.name);
+                    this.validateTypeLine(face.type_line);
+                    this.validateOracleText(face.oracle_text);
+                    this.validateManaCost(face.mana_cost);
+                    this.validateColors(face.colors);
+                    this.validateColorIndicator(face.color_identity);
+                    this.validatePower(face.power);
+                    this.validateToughness(face.toughness);
+                    this.validateLoyalty(face.loyalty);
+                    this.validateFlavorText(face.flavor_text);
+                    this.validateImageUri(face.image_uri);
+                });
+            }
+        }
     }
 
     public static validateLegality(legality: any) {
-        //
+        if (legality === undefined) {
+            throw new Error("legality is required");
+        } else if (legality.is_standard_legal === undefined) {
+            throw new Error("legality.is_standard_legal is required");
+        } else if (typeof legality.is_standard_legal !== "boolean") {
+            throw new Error("legality.is_standard_legal must be a boolean value *** legality.is_standard_legal = " + legality.is_standard_legal);
+        } else if (legality.is_frontier_legal === undefined) {
+            throw new Error("legality.is_frontier_legal is required");
+        } else if (typeof legality.is_frontier_legal !== "boolean") {
+            throw new Error("legality.is_frontier_legal must be a boolean value *** legality.is_frontier_legal = " + legality.is_frontier_legal);
+        } else if (legality.is_modern_legal === undefined) {
+            throw new Error("legality.is_modern_legal is required");
+        } else if (typeof legality.is_modern_legal !== "boolean") {
+            throw new Error("legality.is_modern_legal must be a boolean value *** legality.is_modern_legal = " + legality.is_modern_legal);
+        } else if (legality.is_pauper_legal === undefined) {
+            throw new Error("legality.is_pauper_legal is required");
+        } else if (typeof legality.is_pauper_legal !== "boolean") {
+            throw new Error("legality.is_pauper_legal must be a boolean value *** legality.is_pauper_legal = " + legality.is_pauper_legal);
+        } else if (legality.is_legacy_legal === undefined) {
+            throw new Error("legality.is_legacy_legal is required");
+        } else if (typeof legality.is_legacy_legal !== "boolean") {
+            throw new Error("legality.is_legacy_legal must be a boolean value *** legality.is_legacy_legal = " + legality.is_legacy_legal);
+        } else if (legality.is_penny_legal === undefined) {
+            throw new Error("legality.is_penny_legal is required");
+        } else if (typeof legality.is_penny_legal !== "boolean") {
+            throw new Error("legality.is_penny_legal must be a boolean value *** legality.is_penny_legal = " + legality.is_penny_legal);
+        } else if (legality.is_vintage_legal === undefined) {
+            throw new Error("legality.is_vintage_legal is required");
+        } else if (typeof legality.is_vintage_legal !== "boolean") {
+            throw new Error("legality.is_vintage_legal must be a boolean value *** legality.is_vintage_legal = " + legality.is_vintage_legal);
+        } else if (legality.is_duel_legal === undefined) {
+            throw new Error("legality.is_duel_legal is required");
+        } else if (typeof legality.is_duel_legal !== "boolean") {
+            throw new Error("legality.is_duel_legal must be a boolean value *** legality.is_duel_legal = " + legality.is_duel_legal);
+        } else if (legality.is_commander_legal === undefined) {
+            throw new Error("legality.is_commander_legal is required");
+        } else if (typeof legality.is_commander_legal !== "boolean") {
+            throw new Error("legality.is_commander_legal must be a boolean value *** legality.is_commander_legal = " + legality.is_commander_legal);
+        } else if (legality.is_one_versus_one_legal === undefined) {
+            throw new Error("legality.is_one_versus_one_legal is required");
+        } else if (typeof legality.is_one_versus_one_legal !== "boolean") {
+            throw new Error("legality.is_one_versus_one_legal must be a boolean value *** legality.is_one_versus_one_legal = " + legality.is_one_versus_one_legal);
+        } else if (legality.is_future_legal === undefined) {
+            throw new Error("legality.is_future_legal is required");
+        } else if (typeof legality.is_future_legal !== "boolean") {
+            throw new Error("legality.is_future_legal must be a boolean value *** legality.is_future_legal = " + legality.is_future_legal);
+        }
     }
 
-    public static validateIsReserved(isReserved: boolean) {
-        //
+    public static validateIsReserved(isReserved: any) {
+        if (isReserved === undefined) {
+            throw new Error("is_reserved is required");
+        }
+        if (!(typeof isReserved === "boolean")) {
+            throw new Error("is_reserved must be of type boolean *** is_reserved = " + isReserved);
+        }
     }
 
-    public static validateEDHRecRank(rank: number) {
-        //
+    public static validateEDHRecRank(rank: any) {
+        if (rank !== undefined && isNaN(rank)) {
+            throw new Error("edhrec_rank must be a number *** edhrec_rank = " + rank);
+        }
     }
 
     public static validateSetCode(code: any) {
-        Set.validateSetCode(code);
+        try {
+            Set.validateSetCode(code);
+        } catch (e) {
+            throw new Error("card set_code invalid: " + e.message);
+        }
     }
 
     public static validateSetName(setName: any) {
-        Set.validateSetName(setName);
+        try {
+            Set.validateSetName(setName);
+        } catch (e) {
+            throw new Error("card set_name invalid: " + e.message);
+        }
     }
 
     public static validateCollectorNumber(collectorNumber: any) {
-        //
+        if (collectorNumber === undefined) {
+            throw new Error("collector_number is required");
+        } else if (collectorNumber === "") {
+            throw new Error("collector_number cannot be empty");
+        } else if (!Utility.isAlphaNumeric(collectorNumber)) {
+            throw new Error("collector_number must be alpha-numeric");
+        }
     }
 
     public static validateImageUri(image: any) {
-        //
+        if (image === undefined) {
+            throw new Error("image_url is required");
+        } else if (!validUrl.isWebUri(image)) {
+            throw new Error("image_uri must be a valid URI *** image_uri = " + image);
+        } else if (!(image.substr(image.length - 4) === ".png")) {
+            throw new Error("image_uri must point to a .png file *** image_uri = " + image);
+        }
     }
 
-    public static validateIsReprint(isReprint: boolean) {
-        //
+    public static validateIsReprint(isReprint: any) {
+        if (isReprint === undefined) {
+            throw new Error("is_reprint is required");
+        }
+        if (!(typeof isReprint === "boolean")) {
+            throw new Error("is_reprint must be of type boolean *** is_reprint = " + isReprint);
+        }
     }
 
-    public static validateIsDigital(isDigital: boolean) {
-        //
+    public static validateIsDigital(isDigital: any) {
+        try {
+            Set.validateIsDigital(isDigital);
+        } catch (e) {
+            throw new Error("card is_digital error: " + e.message);
+        }
     }
 
     public static validateRarity(rarity: any) {
-        //
+        if (rarity === undefined) {
+            throw new Error("rarity is required");
+        } else if (rarity === "") {
+            throw new Error("rarity cannot be empty");
+        } else {
+            switch (rarity) {
+                case Rarities.Common:
+                case Rarities.Uncommon:
+                case Rarities.Rare:
+                case Rarities.Mythic:
+                    break;
+                default:
+                    throw new Error("rarity must be one of 'common', 'uncommon', 'rare', or 'mythic' *** rarity = " + rarity);
+            }
+        }
     }
 
     public static validateFlavorText(text: any) {
-        //
+        if (text !== undefined && text === "") {
+            throw new Error("flavor_text cannot be empty");
+        }
     }
 
     public static validateArtist(artist: any) {
-        //
+        if (artist === undefined) {
+            throw new Error("artist is required");
+        }
+        if (artist === "") {
+            throw new Error("artist cannot be empty");
+        }
     }
 
     public static validateFrame(frame: any) {
-        //
+        if (frame === undefined) {
+            throw new Error("frame is required");
+        } else if (frame === "") {
+            throw new Error("frame cannot be mepty");
+        } else {
+            switch (frame) {
+                case Frames.NineteenNinetyThree:
+                case Frames.NineteenNinetySeven:
+                case Frames.TwoThousandThree:
+                case Frames.TwoThousandFifteen:
+                case Frames.Future:
+                    break;
+                default:
+                    throw new Error("frame must be one of '1993', '1997', '2003', '2015', 'future' *** frame = " + frame);
+            }
+        }
     }
 
-    public static validateIsFullArt(isFullArt: boolean) {
-        //
+    public static validateIsFullArt(isFullArt: any) {
+        if (isFullArt === undefined) {
+            throw new Error("is_full_art is required");
+        }
+        if (!(typeof isFullArt === "boolean")) {
+            throw new Error("is_full_art must be of type boolean *** is_full_art = " + isFullArt);
+        }
     }
 
     public static validateWatermark(watermark: any) {
-        //
+        if (watermark !== undefined) {
+            if (watermark === "") {
+                throw new Error("watermark cannot be empty");
+            } else {
+                switch (watermark) {
+                    case Watermarks.Abzan:
+                    case Watermarks.AgentsOfSneak:
+                    case Watermarks.Arena:
+                    case Watermarks.Atarka:
+                    case Watermarks.Azorius:
+                    case Watermarks.Boros:
+                    case Watermarks.ColorPie:
+                    case Watermarks.Conspiracy:
+                    case Watermarks.CrossbreedLabs:
+                    case Watermarks.DAndD:
+                    case Watermarks.DCI:
+                    case Watermarks.Dimir:
+                    case Watermarks.Dromoka:
+                    case Watermarks.FNM:
+                    case Watermarks.GoblinExplosioneers:
+                    case Watermarks.Golgari:
+                    case Watermarks.GrandPrix:
+                    case Watermarks.Gruul:
+                    case Watermarks.Izzet:
+                    case Watermarks.Jeskai:
+                    case Watermarks.Junior:
+                    case Watermarks.JuniorAPAC:
+                    case Watermarks.JuniorEurope:
+                    case Watermarks.Kolaghan:
+                    case Watermarks.LeagueOfDastardlyDoom:
+                    case Watermarks.Mardu:
+                    case Watermarks.Mirran:
+                    case Watermarks.MPS:
+                    case Watermarks.MTG:
+                    case Watermarks.MTGFifteen:
+                    case Watermarks.MTGTen:
+                    case Watermarks.Nerf:
+                    case Watermarks.Ojutai:
+                    case Watermarks.OrderOfTheWidget:
+                    case Watermarks.Orzhov:
+                    case Watermarks.Phyrexian:
+                    case Watermarks.Planeswalker:
+                    case Watermarks.ProTour:
+                    case Watermarks.Rakdos:
+                    case Watermarks.Scholarship:
+                    case Watermarks.Selesnya:
+                    case Watermarks.Set:
+                    case Watermarks.Silumgar:
+                    case Watermarks.Simic:
+                    case Watermarks.Sultai:
+                    case Watermarks.Temur:
+                    case Watermarks.Transformers:
+                    case Watermarks.WotC:
+                    case Watermarks.WPN:
+                        break;
+                    default:
+                        throw new Error("watermark is not in the list of predefined values *** watermark = " + watermark);
+                }
+            }
+        }
     }
 
     public static validateBorderColor(color: any) {
-        //
+        if (color === undefined) {
+            throw new Error("border_color is required");
+        } else if (color === "") {
+            throw new Error("border_color cannot be empty");
+        } else {
+            switch (color) {
+                case BorderColors.Black:
+                case BorderColors.Borderless:
+                case BorderColors.Gold:
+                case BorderColors.Silver:
+                case BorderColors.White:
+                    break;
+                default:
+                    throw new Error("border_color must be one of a pre-defined value");
+            }
+        }
     }
 
-    public static validateStorySpotlightNumber(spotlightNumber: number) {
-        //
+    public static validateStorySpotlightNumber(spotlightNumber: any) {
+        if (spotlightNumber !== undefined && isNaN(spotlightNumber)) {
+            throw new Error("story_spotlight_number must be a number *** story_spotlight_number = " + spotlightNumber);
+        }
     }
 
     public static validateStorySpotlightUri(uri: any) {
-        //
+        if (uri !== undefined) {
+            if (uri === "") {
+                throw new Error("story_spotlight_uri cannot be empty");
+            } else if (!validUrl.isWebUri(uri)) {
+                throw new Error("story_spotlight_uri must be a valid URI *** story_spotlight_uri = " + uri);
+            }
+        }
     }
 
-    public static validateIsTimeshifted(isTimeshifted: boolean) {
-        //
+    public static validateIsTimeshifted(isTimeshifted: any) {
+        if (isTimeshifted === undefined) {
+            throw new Error("is_timeshifted is required");
+        }
+        if (!(typeof isTimeshifted === "boolean")) {
+            throw new Error("is_timeshifted must be of type boolean *** is_timeshifted = " + isTimeshifted);
+        }
     }
 
-    public static validateIsColorshifted(isColorshifted: boolean) {
-        //
+    public static validateIsColorshifted(isColorshifted: any) {
+        if (isColorshifted === undefined) {
+            throw new Error("is_colorshifted is required");
+        }
+        if (!(typeof isColorshifted === "boolean")) {
+            throw new Error("is_colorshifted must be of type boolean *** is_colorshifted = " + isColorshifted);
+        }
     }
 
-    public static validateIsFutureShifted(isFutureshifted: boolean) {
-        //
+    public static validateIsFutureshifted(isFutureshifted: any) {
+        if (isFutureshifted === undefined) {
+            throw new Error("is_futureshifted is required");
+        }
+        if (!(typeof isFutureshifted === "boolean")) {
+            throw new Error("is_futureshifted must be of type boolean *** is_futureshifted = " + isFutureshifted);
+        }
     }
 
     public static validateUsdPrice(price: any) {
-        //
+        if (price !== undefined) {
+            if (isNaN(price)) {
+                throw new Error("usd_price must be a number *** usd_price = " + price);
+            } else if (price < 0) {
+                throw new Error("usd_price must be positive *** usd_price = " + price);
+            }
+        }
     }
 
     public static validateTixPrice(price: any) {
-        //
+        if (price !== undefined) {
+            if (isNaN(price)) {
+                throw new Error("tix_price must be a number *** tix_price = " + price);
+            } else if (price < 0) {
+                throw new Error("tix_price must be positive *** tix_price = " + price);
+            }
+        }
     }
 
     public static validateEurPrice(price: any) {
-        //
+        if (price !== undefined) {
+            if (isNaN(price)) {
+                throw new Error("eur_price must be a number *** eur_price = " + price);
+            } else if (price < 0) {
+                throw new Error("eur_price must be positive *** eur_price = " + price);
+            }
+        }
     }
 
     public static validateRelatedLinks(links: any) {
-        //
+        if (links !== undefined) {
+            if (links.gatherer !== undefined) {
+                if (links.gatherer === "") {
+                    throw new Error("related_links.gatherer cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.gatherer)) {
+                    throw new Error("related_links.gatherer is an invalid uri *** related_links.gatherer = " + links.gatherer);
+                }
+            }
+            
+            if (links.tcgplayer !== undefined) {
+                if (links.tcgplayer === "") {
+                    throw new Error("related_links.tcgplayer cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.tcgplayer)) {
+                    throw new Error("related_links.tcgplayer is an invalid uri *** related_links.tcgplayer = " + links.tcgplayer);
+                }
+            }
+            
+            if (links.edhrec !== undefined) {
+                if (links.edhrec === "") {
+                    throw new Error("related_links.edhrec cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.edhrec)) {
+                    throw new Error("related_links.edhrec is an invalid uri *** related_links.edhrec = " + links.edhrec);
+                }
+            }
+            
+            if (links.mtgtop8 !== undefined) {
+                if (links.mtgtop8 === "") {
+                    throw new Error("related_links.mtgtop8 cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.mtgtop8)) {
+                    throw new Error("related_links.mtgtop8 is an invalid uri *** related_links.mtgtop8 = " + links.mtgtop8);
+                }
+            }
+        }
     }
 
     public static validatePurchaseLinks(links: any) {
-        //
+        if (links !== undefined) {
+            if (links.amazon !== undefined) {
+                if (links.amazon === "") {
+                    throw new Error("purchase_links.amazon cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.amazon)) {
+                    throw new Error("purchase_links.amazon is an invalid uri *** purchase_links.amazon = " + links.amazon);
+                }
+            }
+            
+            if (links.ebay !== undefined) {
+                if (links.ebay === "") {
+                    throw new Error("purchase_links.ebay cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.ebay)) {
+                    throw new Error("purchase_links.ebay is an invalid uri *** purchase_links.ebay = " + links.ebay);
+                }
+            }
+            
+            if (links.tcgplayer !== undefined) {
+                if (links.tcgplayer === "") {
+                    throw new Error("purchase_links.tcgplayer cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.tcgplayer)) {
+                    throw new Error("purchase_links.tcgplayer is an invalid uri *** purchase_links.tcgplayer = " + links.tcgplayer);
+                }
+            }
+            
+            if (links.magiccardmarket !== undefined) {
+                if (links.magiccardmarket === "") {
+                    throw new Error("purchase_links.magiccardmarket cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.magiccardmarket)) {
+                    throw new Error("purchase_links.magiccardmarket is an invalid uri *** purchase_links.magiccardmarket = " + links.magiccardmarket);
+                }
+            }
+
+            if (links.cardhoarder !== undefined) {
+                if (links.cardhoarder === "") {
+                    throw new Error("purchase_links.cardhoarder cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.cardhoarder)) {
+                    throw new Error("purchase_links.cardhoarder is an invalid uri *** purchase_links.cardhoarder = " + links.cardhoarder);
+                }
+            }
+            
+            if (links.card_kingdom !== undefined) {
+                if (links.card_kingdom === "") {
+                    throw new Error("purchase_links.card_kingdom cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.card_kingdom)) {
+                    throw new Error("purchase_links.card_kingdom is an invalid uri *** purchase_links.card_kingdom = " + links.card_kingdom);
+                }
+            }
+            
+            if (links.mtgo_traders !== undefined) {
+                if (links.mtgo_traders === "") {
+                    throw new Error("purchase_links.mtgo_traders cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.mtgo_traders)) {
+                    throw new Error("purchase_links.mtgo_traders is an invalid uri *** purchase_links.mtgo_traders = " + links.mtgo_traders);
+                }
+            }
+            
+            if (links.coolstuffinc !== undefined) {
+                if (links.coolstuffinc === "") {
+                    throw new Error("purchase_links.coolstuffinc cannot be empty");
+                }
+                else if (!validUrl.isWebUri(links.coolstuffinc)) {
+                    throw new Error("purchase_links.coolstuffinc is an invalid uri *** purchase_links.coolstuffinc = " + links.coolstuffinc);
+                }
+            }
+        }
     }
 }

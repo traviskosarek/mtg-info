@@ -35,10 +35,10 @@ describe("Utility", function () {
             var result = utility_1.Utility.isAlphaNumeric(testString);
             chai_1.expect(result).to.be.true;
         });
-        it("should allow strings with spaces", function () {
+        it("should not allow strings with spaces", function () {
             var testString = " ";
             var result = utility_1.Utility.isAlphaNumeric(testString);
-            chai_1.expect(result).to.be.true;
+            chai_1.expect(result).to.be.false;
         });
         it("should not allow strings with punctuation", function () {
             var testString = "!,./;'[]<>?:";

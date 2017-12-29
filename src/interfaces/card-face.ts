@@ -92,5 +92,5 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    scryfall_image_uri: string;
+    image_uri: string;
 }
