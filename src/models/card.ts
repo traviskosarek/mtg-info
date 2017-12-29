@@ -4,6 +4,58 @@ import { Layouts, Powers, Symbols, Loyalties, Colors, Toughnesses, Rarities, Fra
 import * as validUrl from "valid-url";
 
 export class Card {
+    public static createCard(card: any): any {
+        this.validateCard(card);
+        
+        let validCard: ICard = {
+            artist: card.artist,
+            border_color: card.border_color,
+            card_faces: card.card_faces,
+            collector_number: card.collector_number,
+            color_identity: card.color_identity,
+            color_indicator: card.color_indicator,
+            colors: card.colors,
+            converted_mana_cost: card.converted_mana_cost,
+            edhrec_rank: card.edhrec_rank,
+            eur_price: card.eur_price,
+            flavor_text: card.flavor_text,
+            frame: card.frame,
+            hand_modifier: card.hand_modifier,
+            image_uri: card.image_uri,
+            is_colorshifted: card.is_colorshifted,
+            is_digital: card.is_digital,
+            is_full_art: card.is_full_art,
+            is_futureshifted: card.is_futureshifted,
+            is_reprint: card.is_reprint,
+            is_reserved: card.is_reserved,
+            is_timeshifted: card.is_timeshifted,
+            layout: card.layout,
+            legality: card.legality,
+            life_modifer: card.life_modifer,
+            loyalty: card.loyalty,
+            mana_cost: card.mana_cost,
+            multiverse_ids: card.multiverse_ids,
+            name: card.name,
+            oracle_text: card.oracle_text,
+            power: card.power,
+            purchase_links: card.purchase_links,
+            rarity: card.rarity,
+            related_cards: card.related_cards,
+            related_links: card.related_links,
+            set_code: card.set_code,
+            set_name: card.set_name,
+            story_spotlight_number: card.story_spotlight_number,
+            story_spotlight_uri: card.story_spotlight_uri,
+            tix_price: card.tix_price,
+            toughness: card.toughness,
+            type_line: card.type_line,
+            usd_price: card.usd_price,
+            watermark: card.watermark
+        };
+        
+        return validCard;
+    }
+
     public static validateCard(card: any) {
         try {
             this.validateArtist(card.artist);

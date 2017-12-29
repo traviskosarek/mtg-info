@@ -17,6 +17,287 @@ afterEach(function() {
 });
 
 describe("Card", () => {
+    describe("createSet", () => {
+        it("should return validated set", () => {
+            // arrange
+            let card: ICard = {
+                multiverse_ids: [426786],
+                name: "Cruel Reality",
+                layout: "normal",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                converted_mana_cost: 7,
+                type_line: "Enchantment — Aura Curse",
+                oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
+                mana_cost: "{5}{B}{B}",
+                colors: ["B"],
+                color_identity: ["B"],
+                legality: {
+                    is_standard_legal: true,
+                    is_frontier_legal: true,
+                    is_modern_legal: true,
+                    is_pauper_legal: false,
+                    is_legacy_legal: true,
+                    is_penny_legal: false,
+                    is_vintage_legal: true,
+                    is_duel_legal: true,
+                    is_commander_legal: true,
+                    is_one_versus_one_legal: true,
+                    is_future_legal: true
+                },
+                is_reserved: false,
+                is_reprint: false,
+                set_code: "akh",
+                set_name: "Amonkhet",
+                collector_number: "84",
+                is_digital: false,
+                rarity: "mythic",
+                watermark: "planeswalker",
+                flavor_text: "As Gideon watched the initiate murder his crop-mate, his admiration of the city of Naktamun gave way to horror.",
+                artist: "Kieran Yanner",
+                frame: "2015",
+                is_full_art: false,
+                border_color: "black",
+                is_timeshifted: false,
+                is_colorshifted: false,
+                is_futureshifted: false,
+                story_spotlight_number: 2,
+                story_spotlight_uri: "http://magic.wizards.com/en/articles/archive/magic-story/brazen-2017-05-03",
+                edhrec_rank: 1849,
+                usd_price: "0.49",
+                tix_price: "0.20",
+                eur_price: "0.37",
+                related_links: {
+                    gatherer: "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=426786",
+                    tcgplayer: "http://decks.tcgplayer.com/magic/deck/search?contains=Cruel+Reality&page=1&partner=Scryfall",
+                    edhrec: "http://edhrec.com/route/?cc=Cruel+Reality",
+                    mtgtop8: "http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=Cruel+Reality"
+                },
+                purchase_links: {
+                    amazon: "https://www.amazon.com/gp/search?ie=UTF8&index=toys-and-games&keywords=Cruel+Reality&tag=scryfall-20",
+                    ebay:
+                        "http://rover.ebay.com/rover/1/711-53200-19255-0/1?campid=5337966903&icep_catId=19107&icep_ff3=10&icep_sortBy=12&icep_uq=Cruel+Reality&icep_vectorid=229466&ipn=psmain&kw=lg&kwid=902099&mtid=824&pub=5575230669&toolid=10001",
+                    tcgplayer: "http://store.tcgplayer.com/magic/amonkhet/cruel-reality?partner=Scryfall",
+                    magiccardmarket: "https://www.cardmarket.com/Magic/Products/Singles/Amonkhet/Cruel+Reality?referrer=scryfall",
+                    cardhoarder: "https://www.cardhoarder.com/cards/63770?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+                    card_kingdom: "https://www.cardkingdom.com/catalog/item/211792?partner=scryfall&utm_campaign=affiliate&utm_medium=scryfall&utm_source=scryfall",
+                    mtgo_traders: "http://www.mtgotraders.com/deck/ref.php?id=63770&referral=scryfall",
+                    coolstuffinc: "http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Cruel+Reality?utm_source=scryfall"
+                },
+                card_faces: undefined,
+                color_indicator: undefined,
+                hand_modifier: undefined,
+                life_modifer: undefined,
+                loyalty: undefined,
+                power: undefined,
+                related_cards: undefined,
+                toughness: undefined
+            };
+
+            let validateCardStub = sandbox.stub(Card, "validateCard");
+
+            // act
+            let returnedCard = Card.createCard(card);
+
+            // assert
+            expect(validateCardStub.called).to.be.true;
+            expect(returnedCard).to.deep.equal(card);
+
+            // cleanup
+            validateCardStub.restore();
+        });
+
+        it("should ignore additional values in validated set", () => {
+            // arrange
+            let card = {
+                multiverse_ids: [426786],
+                name: "Cruel Reality",
+                layout: "normal",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                converted_mana_cost: 7,
+                type_line: "Enchantment — Aura Curse",
+                oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
+                mana_cost: "{5}{B}{B}",
+                colors: ["B"],
+                color_identity: ["B"],
+                legality: {
+                    is_standard_legal: true,
+                    is_frontier_legal: true,
+                    is_modern_legal: true,
+                    is_pauper_legal: false,
+                    is_legacy_legal: true,
+                    is_penny_legal: false,
+                    is_vintage_legal: true,
+                    is_duel_legal: true,
+                    is_commander_legal: true,
+                    is_one_versus_one_legal: true,
+                    is_future_legal: true
+                },
+                is_reserved: false,
+                is_reprint: false,
+                set_code: "akh",
+                set_name: "Amonkhet",
+                collector_number: "84",
+                is_digital: false,
+                rarity: "mythic",
+                watermark: "planeswalker",
+                flavor_text: "As Gideon watched the initiate murder his crop-mate, his admiration of the city of Naktamun gave way to horror.",
+                artist: "Kieran Yanner",
+                frame: "2015",
+                is_full_art: false,
+                border_color: "black",
+                is_timeshifted: false,
+                is_colorshifted: false,
+                is_futureshifted: false,
+                story_spotlight_number: 2,
+                story_spotlight_uri: "http://magic.wizards.com/en/articles/archive/magic-story/brazen-2017-05-03",
+                edhrec_rank: 1849,
+                usd_price: "0.49",
+                tix_price: "0.20",
+                eur_price: "0.37",
+                related_links: {
+                    gatherer: "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=426786",
+                    tcgplayer: "http://decks.tcgplayer.com/magic/deck/search?contains=Cruel+Reality&page=1&partner=Scryfall",
+                    edhrec: "http://edhrec.com/route/?cc=Cruel+Reality",
+                    mtgtop8: "http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=Cruel+Reality"
+                },
+                purchase_links: {
+                    amazon: "https://www.amazon.com/gp/search?ie=UTF8&index=toys-and-games&keywords=Cruel+Reality&tag=scryfall-20",
+                    ebay:
+                        "http://rover.ebay.com/rover/1/711-53200-19255-0/1?campid=5337966903&icep_catId=19107&icep_ff3=10&icep_sortBy=12&icep_uq=Cruel+Reality&icep_vectorid=229466&ipn=psmain&kw=lg&kwid=902099&mtid=824&pub=5575230669&toolid=10001",
+                    tcgplayer: "http://store.tcgplayer.com/magic/amonkhet/cruel-reality?partner=Scryfall",
+                    magiccardmarket: "https://www.cardmarket.com/Magic/Products/Singles/Amonkhet/Cruel+Reality?referrer=scryfall",
+                    cardhoarder: "https://www.cardhoarder.com/cards/63770?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+                    card_kingdom: "https://www.cardkingdom.com/catalog/item/211792?partner=scryfall&utm_campaign=affiliate&utm_medium=scryfall&utm_source=scryfall",
+                    mtgo_traders: "http://www.mtgotraders.com/deck/ref.php?id=63770&referral=scryfall",
+                    coolstuffinc: "http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Cruel+Reality?utm_source=scryfall"
+                },
+                card_faces: undefined,
+                color_indicator: undefined,
+                hand_modifier: undefined,
+                life_modifer: undefined,
+                loyalty: undefined,
+                power: undefined,
+                related_cards: undefined,
+                toughness: undefined,
+                extra_value1: true,
+                extra_value2: "value",
+                extra_value3: 123
+            };
+
+            let validateCardStub = sandbox.stub(Card, "validateCard");
+
+            // act
+            let returnedCard = Card.createCard(card);
+
+            // assert
+            expect(validateCardStub.called).to.be.true;
+            expect(returnedCard.extra_value1).to.be.undefined;
+            expect(returnedCard.extra_value2).to.be.undefined;
+            expect(returnedCard.extra_value3).to.be.undefined;
+
+            // cleanup
+            validateCardStub.restore();
+        });
+
+        it("should throw errors", () => {
+            // arrange
+            let card: ICard = {
+                multiverse_ids: [426786],
+                name: "Cruel Reality",
+                layout: "normal",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                converted_mana_cost: 7,
+                type_line: "Enchantment — Aura Curse",
+                oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
+                mana_cost: "{5}{B}{B}",
+                colors: ["B"],
+                color_identity: ["B"],
+                legality: {
+                    is_standard_legal: true,
+                    is_frontier_legal: true,
+                    is_modern_legal: true,
+                    is_pauper_legal: false,
+                    is_legacy_legal: true,
+                    is_penny_legal: false,
+                    is_vintage_legal: true,
+                    is_duel_legal: true,
+                    is_commander_legal: true,
+                    is_one_versus_one_legal: true,
+                    is_future_legal: true
+                },
+                is_reserved: false,
+                is_reprint: false,
+                set_code: "akh",
+                set_name: "Amonkhet",
+                collector_number: "84",
+                is_digital: false,
+                rarity: "mythic",
+                watermark: "planeswalker",
+                flavor_text: "As Gideon watched the initiate murder his crop-mate, his admiration of the city of Naktamun gave way to horror.",
+                artist: "Kieran Yanner",
+                frame: "2015",
+                is_full_art: false,
+                border_color: "black",
+                is_timeshifted: false,
+                is_colorshifted: false,
+                is_futureshifted: false,
+                story_spotlight_number: 2,
+                story_spotlight_uri: "http://magic.wizards.com/en/articles/archive/magic-story/brazen-2017-05-03",
+                edhrec_rank: 1849,
+                usd_price: "0.49",
+                tix_price: "0.20",
+                eur_price: "0.37",
+                related_links: {
+                    gatherer: "http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=426786",
+                    tcgplayer: "http://decks.tcgplayer.com/magic/deck/search?contains=Cruel+Reality&page=1&partner=Scryfall",
+                    edhrec: "http://edhrec.com/route/?cc=Cruel+Reality",
+                    mtgtop8: "http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=Cruel+Reality"
+                },
+                purchase_links: {
+                    amazon: "https://www.amazon.com/gp/search?ie=UTF8&index=toys-and-games&keywords=Cruel+Reality&tag=scryfall-20",
+                    ebay:
+                        "http://rover.ebay.com/rover/1/711-53200-19255-0/1?campid=5337966903&icep_catId=19107&icep_ff3=10&icep_sortBy=12&icep_uq=Cruel+Reality&icep_vectorid=229466&ipn=psmain&kw=lg&kwid=902099&mtid=824&pub=5575230669&toolid=10001",
+                    tcgplayer: "http://store.tcgplayer.com/magic/amonkhet/cruel-reality?partner=Scryfall",
+                    magiccardmarket: "https://www.cardmarket.com/Magic/Products/Singles/Amonkhet/Cruel+Reality?referrer=scryfall",
+                    cardhoarder: "https://www.cardhoarder.com/cards/63770?affiliate_id=scryfall&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+                    card_kingdom: "https://www.cardkingdom.com/catalog/item/211792?partner=scryfall&utm_campaign=affiliate&utm_medium=scryfall&utm_source=scryfall",
+                    mtgo_traders: "http://www.mtgotraders.com/deck/ref.php?id=63770&referral=scryfall",
+                    coolstuffinc: "http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Cruel+Reality?utm_source=scryfall"
+                },
+                card_faces: undefined,
+                color_indicator: undefined,
+                hand_modifier: undefined,
+                life_modifer: undefined,
+                loyalty: undefined,
+                power: undefined,
+                related_cards: undefined,
+                toughness: undefined
+            };
+            let errorOccurred = false;
+
+            let validateCardStub = sandbox.stub(Card, "validateCard").callsFake(() => { 
+                throw new Error("new validate card error");
+            });
+
+            // act
+            let returnedCard;
+
+            try {
+                returnedCard = Card.createCard(card);
+            }
+            catch (e) {
+                errorOccurred = true;
+            }
+            // assert
+            expect(validateCardStub.called).to.be.true;
+            expect(errorOccurred).to.be.true;
+            expect(returnedCard).to.be.undefined;
+
+            // cleanup
+            validateCardStub.restore();
+        });
+    });
+
     describe("validateCard", () => {
         it("should validate card fields", () => {
             // arrange
@@ -129,14 +410,14 @@ describe("Card", () => {
             let validateToughnessStub = sandbox.stub(Card, "validateToughness");
             let validateTypeLineStub = sandbox.stub(Card, "validateTypeLine");
             let validateWatermarkStub = sandbox.stub(Card, "validateWatermark");
-            
+
             // act
             try {
                 Card.validateCard(card);
             } catch (e) {
                 errorThrown = true;
             }
-            
+
             // assert
             expect(errorThrown).to.be.false;
             expect(validateArtistStub.called).to.be.true;

@@ -1,12 +1,14 @@
 import * as Datastore from "@google-cloud/datastore";
 import { Request, Response } from "express";
 
-import { Set } from "./models";
+import { Set, Card } from "./models";
 import { ISet, ICard } from "./interfaces";
 
 export class API {
     private static singleton: API;
     private projectId = "reaper-grames";
+    private card = "card";
+    private set = "set";
 
     private datastore: Datastore;
 
@@ -23,7 +25,7 @@ export class API {
 
     public putSet(request: Request, response: Response) {
         try {
-            let kind = "set";
+            let kind = this.set;
 
             let validSet = Set.createSet(request.body);
             
@@ -60,7 +62,7 @@ export class API {
         try {
             let sets = request.body;
             if (sets instanceof Array && sets.length > 0) {
-                let kind = "set";
+                let kind = this.set;
                 let validSets = [];
 
                 this.datastore = Datastore({
@@ -106,7 +108,7 @@ export class API {
     public getSet(request: Request, response: Response) {
         try {
             let set = request.body;
-            let kind = "set";
+            let kind = this.set;
 
             let set_code = set.set_code;
 
@@ -149,7 +151,7 @@ export class API {
     public getSets(request: Request, response: Response) {
         try {
             let set = request.body as ISet;
-            let kind = "set";
+            let kind = this.set;
 
             this.datastore = Datastore({
                 projectId: this.projectId
@@ -242,7 +244,38 @@ export class API {
     }
 
     public putCard(request: Request, response: Response) {
-        //
+        try {
+            let kind = this.card;
+
+            let validCard = Card.createCard(request.body);
+            
+            this.datastore = Datastore({
+                projectId: this.projectId
+            });
+
+            this.datastore
+                .upsert({
+                    key: this.datastore.key([kind, validCard.set_code]),
+                    data: validCard
+                })
+                .then(() => {
+                    response.status(200).json({
+                        status: 200,
+                        message: "Success"
+                    });
+                })
+                .catch((err) => {
+                    response.status(500).json({
+                        status: 500,
+                        message: "Save unsuccessful, please try again later"
+                    });
+                });
+        } catch (e) {
+            response.status(400).json({
+                status: 400,
+                message: e.message
+            });
+        }
     }
 
     public putCards(request: Request, response: Response) {
