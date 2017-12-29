@@ -6,6 +6,7 @@ npm-debug.log
 
 # generated files
 *.js.map
+*.spec.js
 .nyc_output
 coverage
 
