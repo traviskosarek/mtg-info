@@ -1176,7 +1176,7 @@ describe("CardAPI", () => {
             expect(datastoreCreateQueryStub.called).to.be.true;
             expect(queryOrderStub.called).to.be.true;
             expect(queryOrderStub.getCall(0).args[0]).to.be.equal("set_name");
-            expect(queryOrderStub.getCall(1).args[0]).to.be.equal("collector_number");
+            // expect(queryOrderStub.getCall(1).args[0]).to.be.equal("collector_number");
             expect(datastoreRunQueryStub.called).to.be.true;
             expect(response.status.called).to.be.true;
             expect(response.status.getCall(0).args[0]).to.be.equal(200);

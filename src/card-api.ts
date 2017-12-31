@@ -460,7 +460,7 @@ export class CardAPI {
             }
             
             if (noFilters) {
-                query = query.order("set_name").order("collector_number");
+                query = query.order("set_name");
             }
 
             this.datastore
@@ -469,7 +469,7 @@ export class CardAPI {
                     response.status(200).json({
                         status: 200,
                         message: "Success",
-                        sets: results[0]
+                        cards: results[0]
                     });
                 })
                 .catch((err) => {

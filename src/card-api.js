@@ -413,7 +413,7 @@ var CardAPI = (function () {
                 noFilters = false;
             }
             if (noFilters) {
-                query = query.order("set_name").order("collector_number");
+                query = query.order("set_name");
             }
             this.datastore
                 .runQuery(query)
@@ -421,7 +421,7 @@ var CardAPI = (function () {
                 response.status(200).json({
                     status: 200,
                     message: "Success",
-                    sets: results[0]
+                    cards: results[0]
                 });
             })
                 .catch(function (err) {
