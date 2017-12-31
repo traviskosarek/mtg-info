@@ -8,10 +8,91 @@ var Card = (function () {
     }
     Card.createCard = function (card) {
         this.validateCard(card);
+        var cardFaces;
+        if (card.card_faces !== undefined) {
+            cardFaces = [];
+            card.card_faces.forEach(function (face) {
+                cardFaces.push({
+                    color_indicator: face.color_indicator,
+                    colors: face.colors,
+                    flavor_text: face.flavor_text,
+                    image_uri: face.image_uri,
+                    loyalty: face.loyalty,
+                    mana_cost: face.mana_cost,
+                    name: face.name,
+                    oracle_text: face.oracle_text,
+                    power: face.power,
+                    toughness: face.toughness,
+                    type_line: face.type_line
+                });
+            });
+        }
+        var cardLegality = {
+            is_commander_banned: card.legality.is_commander_banned,
+            is_commander_legal: card.legality.is_commander_legal,
+            is_commander_restricted: card.legality.is_commander_restricted,
+            is_duel_banned: card.legality.is_duel_banned,
+            is_duel_legal: card.legality.is_duel_legal,
+            is_duel_restricted: card.legality.is_duel_restricted,
+            is_frontier_banned: card.legality.is_frontier_banned,
+            is_frontier_legal: card.legality.is_frontier_legal,
+            is_frontier_restricted: card.legality.is_frontier_restricted,
+            is_future_banned: card.legality.is_future_banned,
+            is_future_legal: card.legality.is_future_legal,
+            is_future_restricted: card.legality.is_future_restricted,
+            is_legacy_banned: card.legality.is_legacy_banned,
+            is_legacy_legal: card.legality.is_legacy_legal,
+            is_legacy_restricted: card.legality.is_legacy_restricted,
+            is_modern_banned: card.legality.is_modern_banned,
+            is_modern_legal: card.legality.is_modern_legal,
+            is_modern_restricted: card.legality.is_modern_restricted,
+            is_one_versus_one_banned: card.legality.is_one_versus_one_banned,
+            is_one_versus_one_legal: card.legality.is_one_versus_one_legal,
+            is_one_versus_one_restricted: card.legality.is_one_versus_one_restricted,
+            is_pauper_banned: card.legality.is_pauper_banned,
+            is_pauper_legal: card.legality.is_pauper_legal,
+            is_pauper_restricted: card.legality.is_pauper_restricted,
+            is_penny_banned: card.legality.is_penny_banned,
+            is_penny_legal: card.legality.is_penny_legal,
+            is_penny_restricted: card.legality.is_penny_restricted,
+            is_standard_banned: card.legality.is_standard_banned,
+            is_standard_legal: card.legality.is_standard_legal,
+            is_standard_restricted: card.legality.is_standard_restricted,
+            is_vintage_banned: card.legality.is_vintage_banned,
+            is_vintage_legal: card.legality.is_vintage_legal,
+            is_vintage_restricted: card.legality.is_vintage_restricted
+        };
+        var cardPurchaseLinks = {
+            amazon: card.purchase_links.amazon,
+            card_kingdom: card.purchase_links.card_kingdom,
+            cardhoarder: card.purchase_links.cardhoarder,
+            coolstuffinc: card.purchase_links.coolstuffinc,
+            ebay: card.purchase_links.ebay,
+            magiccardmarket: card.purchase_links.magiccardmarket,
+            mtgo_traders: card.purchase_links.mtgo_traders,
+            tcgplayer: card.purchase_links.tcgplayer
+        };
+        var cardRelatedCards;
+        if (card.related_cards !== undefined) {
+            cardRelatedCards = [];
+            card.related_cards.forEach(function (relatedCard) {
+                cardRelatedCards.push({
+                    name: relatedCard.name,
+                    collector_number: relatedCard.collector_number,
+                    set_code: relatedCard.set_code
+                });
+            });
+        }
+        var cardRelatedLinks = {
+            edhrec: card.related_links.edhrec,
+            gatherer: card.related_links.gatherer,
+            mtgtop8: card.related_links.mtgtop8,
+            tcgplayer: card.related_links.tcgplayer
+        };
         var validCard = {
             artist: card.artist,
             border_color: card.border_color,
-            card_faces: card.card_faces,
+            card_faces: cardFaces,
             collector_number: card.collector_number,
             color_identity: card.color_identity,
             color_indicator: card.color_indicator,
@@ -31,7 +112,7 @@ var Card = (function () {
             is_reserved: card.is_reserved,
             is_timeshifted: card.is_timeshifted,
             layout: card.layout,
-            legality: card.legality,
+            legality: cardLegality,
             life_modifer: card.life_modifer,
             loyalty: card.loyalty,
             mana_cost: card.mana_cost,
@@ -39,10 +120,10 @@ var Card = (function () {
             name: card.name,
             oracle_text: card.oracle_text,
             power: card.power,
-            purchase_links: card.purchase_links,
+            purchase_links: cardPurchaseLinks,
             rarity: card.rarity,
-            related_cards: card.related_cards,
-            related_links: card.related_links,
+            related_cards: cardRelatedCards,
+            related_links: cardRelatedLinks,
             set_code: card.set_code,
             set_name: card.set_name,
             story_spotlight_number: card.story_spotlight_number,
@@ -53,7 +134,7 @@ var Card = (function () {
             usd_price: card.usd_price,
             watermark: card.watermark
         };
-        return validCard;
+        return JSON.parse(JSON.stringify(validCard));
     };
     Card.validateCard = function (card) {
         try {
@@ -678,6 +759,72 @@ var Card = (function () {
         }
         else if (typeof legality.is_future_legal !== "boolean") {
             throw new Error("legality.is_future_legal must be a boolean value *** legality.is_future_legal = " + legality.is_future_legal);
+        }
+        else if (legality.is_standard_banned !== undefined && typeof legality.is_standard_banned !== "boolean") {
+            throw new Error("legality.is_standard_banned must be a boolean value *** legality.is_standard_banned = " + legality.is_standard_banned);
+        }
+        else if (legality.is_frontier_banned !== undefined && typeof legality.is_frontier_banned !== "boolean") {
+            throw new Error("legality.is_frontier_banned must be a boolean value *** legality.is_frontier_banned = " + legality.is_frontier_banned);
+        }
+        else if (legality.is_modern_banned !== undefined && typeof legality.is_modern_banned !== "boolean") {
+            throw new Error("legality.is_modern_banned must be a boolean value *** legality.is_modern_banned = " + legality.is_modern_banned);
+        }
+        else if (legality.is_pauper_banned !== undefined && typeof legality.is_pauper_banned !== "boolean") {
+            throw new Error("legality.is_pauper_banned must be a boolean value *** legality.is_pauper_banned = " + legality.is_pauper_banned);
+        }
+        else if (legality.is_legacy_banned !== undefined && typeof legality.is_legacy_banned !== "boolean") {
+            throw new Error("legality.is_legacy_banned must be a boolean value *** legality.is_legacy_banned = " + legality.is_legacy_banned);
+        }
+        else if (legality.is_penny_banned !== undefined && typeof legality.is_penny_banned !== "boolean") {
+            throw new Error("legality.is_penny_banned must be a boolean value *** legality.is_penny_banned = " + legality.is_penny_banned);
+        }
+        else if (legality.is_vintage_banned !== undefined && typeof legality.is_vintage_banned !== "boolean") {
+            throw new Error("legality.is_vintage_banned must be a boolean value *** legality.is_vintage_banned = " + legality.is_vintage_banned);
+        }
+        else if (legality.is_duel_banned !== undefined && typeof legality.is_duel_banned !== "boolean") {
+            throw new Error("legality.is_duel_banned must be a boolean value *** legality.is_duel_banned = " + legality.is_duel_banned);
+        }
+        else if (legality.is_commander_banned !== undefined && typeof legality.is_commander_banned !== "boolean") {
+            throw new Error("legality.is_commander_banned must be a boolean value *** legality.is_commander_banned = " + legality.is_commander_banned);
+        }
+        else if (legality.is_one_versus_one_banned !== undefined && typeof legality.is_one_versus_one_banned !== "boolean") {
+            throw new Error("legality.is_one_versus_one_banned must be a boolean value *** legality.is_one_versus_one_banned = " + legality.is_one_versus_one_banned);
+        }
+        else if (legality.is_future_banned !== undefined && typeof legality.is_future_banned !== "boolean") {
+            throw new Error("legality.is_future_banned must be a boolean value *** legality.is_future_banned = " + legality.is_future_banned);
+        }
+        else if (legality.is_standard_restricted !== undefined && typeof legality.is_standard_restricted !== "boolean") {
+            throw new Error("legality.is_standard_restricted must be a boolean value *** legality.is_standard_restricted = " + legality.is_standard_restricted);
+        }
+        else if (legality.is_frontier_restricted !== undefined && typeof legality.is_frontier_restricted !== "boolean") {
+            throw new Error("legality.is_frontier_restricted must be a boolean value *** legality.is_frontier_restricted = " + legality.is_frontier_restricted);
+        }
+        else if (legality.is_modern_restricted !== undefined && typeof legality.is_modern_restricted !== "boolean") {
+            throw new Error("legality.is_modern_restricted must be a boolean value *** legality.is_modern_restricted = " + legality.is_modern_restricted);
+        }
+        else if (legality.is_pauper_restricted !== undefined && typeof legality.is_pauper_restricted !== "boolean") {
+            throw new Error("legality.is_pauper_restricted must be a boolean value *** legality.is_pauper_restricted = " + legality.is_pauper_restricted);
+        }
+        else if (legality.is_legacy_restricted !== undefined && typeof legality.is_legacy_restricted !== "boolean") {
+            throw new Error("legality.is_legacy_restricted must be a boolean value *** legality.is_legacy_restricted = " + legality.is_legacy_restricted);
+        }
+        else if (legality.is_penny_restricted !== undefined && typeof legality.is_penny_restricted !== "boolean") {
+            throw new Error("legality.is_penny_restricted must be a boolean value *** legality.is_penny_restricted = " + legality.is_penny_restricted);
+        }
+        else if (legality.is_vintage_restricted !== undefined && typeof legality.is_vintage_restricted !== "boolean") {
+            throw new Error("legality.is_vintage_restricted must be a boolean value *** legality.is_vintage_restricted = " + legality.is_vintage_restricted);
+        }
+        else if (legality.is_duel_restricted !== undefined && typeof legality.is_duel_restricted !== "boolean") {
+            throw new Error("legality.is_duel_restricted must be a boolean value *** legality.is_duel_restricted = " + legality.is_duel_restricted);
+        }
+        else if (legality.is_commander_restricted !== undefined && typeof legality.is_commander_restricted !== "boolean") {
+            throw new Error("legality.is_commander_restricted must be a boolean value *** legality.is_commander_restricted = " + legality.is_commander_restricted);
+        }
+        else if (legality.is_one_versus_one_restricted !== undefined && typeof legality.is_one_versus_one_restricted !== "boolean") {
+            throw new Error("legality.is_one_versus_one_restricted must be a boolean value *** legality.is_one_versus_one_restricted = " + legality.is_one_versus_one_restricted);
+        }
+        else if (legality.is_future_restricted !== undefined && typeof legality.is_future_restricted !== "boolean") {
+            throw new Error("legality.is_future_restricted must be a boolean value *** legality.is_future_restricted = " + legality.is_future_restricted);
         }
     };
     Card.validateIsReserved = function (isReserved) {

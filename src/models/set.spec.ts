@@ -19,15 +19,12 @@ describe("Set", () => {
     describe("createSet", () => {
         it("should return validated set", () => { 
             // arrange
-            let set: ISet = {
+            let set = {
                 set_code: "ust",
                 set_name: "Unstable",
                 release_date: "2017-12-08",
                 set_type: "funny",
                 card_count: 268,
-                parent_set_code: undefined,
-                block_code: undefined,
-                block_name: undefined,
                 icon_uri: "https://assets.scryfall.com/assets/sets/ust.svg",
                 is_digital: false,
                 is_foil: false

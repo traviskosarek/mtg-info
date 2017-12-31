@@ -20,11 +20,11 @@ describe("Card", () => {
     describe("createSet", () => {
         it("should return validated set", () => {
             // arrange
-            let card: ICard = {
+            let card = {
                 multiverse_ids: [426786],
                 name: "Cruel Reality",
                 layout: "normal",
-                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png",
                 converted_mana_cost: 7,
                 type_line: "Enchantment — Aura Curse",
                 oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
@@ -42,7 +42,29 @@ describe("Card", () => {
                     is_duel_legal: true,
                     is_commander_legal: true,
                     is_one_versus_one_legal: true,
-                    is_future_legal: true
+                    is_future_legal: true,
+                    is_standard_banned: false,
+                    is_frontier_banned: false,
+                    is_modern_banned: false,
+                    is_pauper_banned: false,
+                    is_legacy_banned: false,
+                    is_penny_banned: false,
+                    is_vintage_banned: false,
+                    is_duel_banned: false,
+                    is_commander_banned: false,
+                    is_one_versus_one_banned: false,
+                    is_future_banned: false,
+                    is_standard_restricted: false,
+                    is_frontier_restricted: false,
+                    is_modern_restricted: false,
+                    is_pauper_restricted: false,
+                    is_legacy_restricted: false,
+                    is_penny_restricted: false,
+                    is_vintage_restricted: false,
+                    is_duel_restricted: false,
+                    is_commander_restricted: false,
+                    is_one_versus_one_restricted: false,
+                    is_future_restricted: false
                 },
                 is_reserved: false,
                 is_reprint: false,
@@ -82,15 +104,192 @@ describe("Card", () => {
                     card_kingdom: "https://www.cardkingdom.com/catalog/item/211792?partner=scryfall&utm_campaign=affiliate&utm_medium=scryfall&utm_source=scryfall",
                     mtgo_traders: "http://www.mtgotraders.com/deck/ref.php?id=63770&referral=scryfall",
                     coolstuffinc: "http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Cruel+Reality?utm_source=scryfall"
+                }
+            };
+
+            let validateCardStub = sandbox.stub(Card, "validateCard");
+
+            // act
+            let returnedCard = Card.createCard(card);
+
+            // assert
+            expect(validateCardStub.called).to.be.true;
+            expect(returnedCard).to.deep.equal(card);
+
+            // cleanup
+            validateCardStub.restore();
+        });
+
+        it("should return validated set with card_faces", () => {
+            // arrange
+            let card = {
+                multiverse_ids: [],
+                name: "Arlinn Kord // Arlinn, Embraced by the Moon",
+                layout: "transform",
+                converted_mana_cost: 4,
+                color_identity: ["G", "R"],
+                card_faces: [
+                    {
+                        name: "Arlinn Kord",
+                        mana_cost: "{2}{R}{G}",
+                        type_line: "Legendary Planeswalker — Arlinn",
+                        oracle_text: "+1: Until end of turn, up to one target creature gets +2/+2 and gains vigilance and haste. 0: Create a 2/2 green Wolf creature token. Transform Arlinn Kord.",
+                        colors: ["G", "R"],
+                        loyalty: "3",
+                        image_uri: "https://img.scryfall.com/cards/png/en/v17/3a.png"
+                    },
+                    {
+                        name: "Arlinn, Embraced by the Moon",
+                        mana_cost: "",
+                        type_line: "Legendary Planeswalker — Arlinn",
+                        oracle_text:
+                            "+1: Creatures you control get +1/+1 and gain trample until end of turn. −1: Arlinn, Embraced by the Moon deals 3 damage to target creature or player. Transform Arlinn, Embraced by the Moon. −6: You get an emblem with 'Creatures you control have haste and '{T}: This creature deals damage equal to its power to target creature or player.''",
+                        colors: ["G", "R"],
+                        color_indicator: ["G", "R"],
+                        image_uri: "https://img.scryfall.com/cards/png/en/v17/3b.png"
+                    }
+                ],
+                legality: {
+                    is_standard_legal: false,
+                    is_frontier_legal: true,
+                    is_modern_legal: true,
+                    is_pauper_legal: false,
+                    is_legacy_legal: true,
+                    is_penny_legal: false,
+                    is_vintage_legal: true,
+                    is_duel_legal: true,
+                    is_commander_legal: true,
+                    is_one_versus_one_legal: true,
+                    is_future_legal: false
                 },
-                card_faces: undefined,
-                color_indicator: undefined,
-                hand_modifier: undefined,
-                life_modifer: undefined,
-                loyalty: undefined,
-                power: undefined,
-                related_cards: undefined,
-                toughness: undefined
+                is_reserved: false,
+                is_reprint: true,
+                set_code: "v17",
+                set_name: "From the Vault: Transform",
+                collector_number: "3",
+                is_digital: false,
+                rarity: "mythic",
+                artist: "Winona Nelson",
+                frame: "2015",
+                is_full_art: false,
+                border_color: "black",
+                is_timeshifted: false,
+                is_colorshifted: false,
+                is_futureshifted: false,
+                edhrec_rank: 1736,
+                usd_price: "3.40",
+                eur_price: "1.75",
+                related_links: {
+                    tcgplayer: "http://decks.tcgplayer.com/magic/deck/search?contains=Arlinn+Kord&page=1&partner=Scryfall",
+                    edhrec: "http://edhrec.com/route/?cc=Arlinn+Kord",
+                    mtgtop8: "http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=Arlinn+Kord"
+                },
+                purchase_links: {
+                    amazon: "https://www.amazon.com/gp/search?ie=UTF8&index=toys-and-games&keywords=Arlinn+Kord&tag=scryfall-20",
+                    ebay:
+                        "http://rover.ebay.com/rover/1/711-53200-19255-0/1?campid=5337966903&icep_catId=19107&icep_ff3=10&icep_sortBy=12&icep_uq=Arlinn+Kord&icep_vectorid=229466&ipn=psmain&kw=lg&kwid=902099&mtid=824&pub=5575230669&toolid=10001",
+                    tcgplayer: "http://store.tcgplayer.com/magic/from-the-vault-transform/arlinn-kord?partner=Scryfall",
+                    magiccardmarket: "https://www.cardmarket.com/Magic/Products/Singles/From+the+Vault%3A+Transform/Arlinn+Kord+%2F+Arlinn%2C+Embraced+by+the+Moon?referrer=scryfall",
+                    cardhoarder: "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Arlinn+Kord&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+                    card_kingdom: "https://www.cardkingdom.com/catalog/item/215230?partner=scryfall&utm_campaign=affiliate&utm_medium=scryfall&utm_source=scryfall",
+                    mtgo_traders: "http://www.mtgotraders.com/store/search.php?q=Arlinn+Kord&referral=scryfall",
+                    coolstuffinc: "http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Arlinn+Kord+%2F%2F+Arlinn%2C+Embraced+by+the+Moon?utm_source=scryfall"
+                }
+            };
+
+            let validateCardStub = sandbox.stub(Card, "validateCard");
+
+            // act
+            let returnedCard = Card.createCard(card);
+
+            // assert
+            expect(validateCardStub.called).to.be.true;
+            expect(returnedCard).to.deep.equal(card);
+
+            // cleanup
+            validateCardStub.restore();
+        });
+
+        it("should return validated set with related_cards", () => {
+            // arrange
+            let card = {
+                multiverse_ids: [],
+                name: "Bruna, the Fading Light",
+                layout: "meld",
+                image_uri: "https://img.scryfall.com/cards/png/en/v17/5a.png",
+                converted_mana_cost: 7,
+                type_line: "Legendary Creature — Angel Horror",
+                oracle_text:
+                    "When you cast Bruna, the Fading Light, you may return target Angel or Human creature card from your graveyard to the battlefield. Flying, vigilance (Melds with Gisela, the Broken Blade.)",
+                mana_cost: "{5}{W}{W}",
+                power: "5",
+                toughness: "7",
+                colors: ["W"],
+                color_identity: ["W"],
+                related_cards: [
+                    {
+                        name: "Bruna, the Fading Light",
+                        collector_number: "5a",
+                        set_code: "v17"
+                    },
+                    {
+                        name: "Brisela, Voice of Nightmares",
+                        collector_number: "5b",
+                        set_code: "v17"
+                    },
+                    {
+                        name: "Gisela, the Broken Blade",
+                        collector_number: "10a",
+                        set_code: "v17"
+                    }
+                ],
+                legality: {
+                    is_standard_legal: false,
+                    is_frontier_legal: true,
+                    is_modern_legal: true,
+                    is_pauper_legal: false,
+                    is_legacy_legal: true,
+                    is_penny_legal: true,
+                    is_vintage_legal: true,
+                    is_duel_legal: true,
+                    is_commander_legal: true,
+                    is_one_versus_one_legal: true,
+                    is_future_legal: false
+                },
+                is_reserved: false,
+                is_reprint: true,
+                set_code: "v17",
+                set_name: "From the Vault: Transform",
+                collector_number: "5a",
+                is_digital: false,
+                rarity: "mythic",
+                flavor_text: "She now sees only Emrakul's visions.",
+                artist: "Clint Cearley",
+                frame: "2015",
+                is_full_art: false,
+                border_color: "black",
+                is_timeshifted: false,
+                is_colorshifted: false,
+                is_futureshifted: false,
+                edhrec_rank: 1100,
+                usd_price: "1.49",
+                related_links: {
+                    tcgplayer: "http://decks.tcgplayer.com/magic/deck/search?contains=Bruna%2C+the+Fading+Light&page=1&partner=Scryfall",
+                    edhrec: "http://edhrec.com/route/?cc=Bruna%2C+the+Fading+Light",
+                    mtgtop8: "http://mtgtop8.com/search?MD_check=1&SB_check=1&cards=Bruna%2C+the+Fading+Light"
+                },
+                purchase_links: {
+                    amazon: "https://www.amazon.com/gp/search?ie=UTF8&index=toys-and-games&keywords=Bruna%2C+the+Fading+Light&tag=scryfall-20",
+                    ebay:
+                        "http://rover.ebay.com/rover/1/711-53200-19255-0/1?campid=5337966903&icep_catId=19107&icep_ff3=10&icep_sortBy=12&icep_uq=Bruna%2C+the+Fading+Light&icep_vectorid=229466&ipn=psmain&kw=lg&kwid=902099&mtid=824&pub=5575230669&toolid=10001",
+                    tcgplayer: "http://store.tcgplayer.com/magic/from-the-vault-transform/bruna-the-fading-light?partner=Scryfall",
+                    magiccardmarket: "https://www.cardmarket.com/Magic?mainPage=showSearchResult&referrer=scryfall&searchFor=Bruna%2C+the+Fading+Light",
+                    cardhoarder:
+                        "https://www.cardhoarder.com/cards?affiliate_id=scryfall&data%5Bsearch%5D=Bruna%2C+the+Fading+Light&ref=card-profile&utm_campaign=affiliate&utm_medium=card&utm_source=scryfall",
+                    card_kingdom: "https://www.cardkingdom.com/catalog/item/215241?partner=scryfall&utm_campaign=affiliate&utm_medium=scryfall&utm_source=scryfall",
+                    mtgo_traders: "http://www.mtgotraders.com/store/search.php?q=Bruna%2C+the+Fading+Light&referral=scryfall",
+                    coolstuffinc: "http://www.coolstuffinc.com/p/Magic%3A+The+Gathering/Bruna%2C+the+Fading+Light?utm_source=scryfall"
+                }
             };
 
             let validateCardStub = sandbox.stub(Card, "validateCard");
@@ -112,7 +311,7 @@ describe("Card", () => {
                 multiverse_ids: [426786],
                 name: "Cruel Reality",
                 layout: "normal",
-                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png",
                 converted_mana_cost: 7,
                 type_line: "Enchantment — Aura Curse",
                 oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
@@ -205,7 +404,7 @@ describe("Card", () => {
                 multiverse_ids: [426786],
                 name: "Cruel Reality",
                 layout: "normal",
-                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png",
                 converted_mana_cost: 7,
                 type_line: "Enchantment — Aura Curse",
                 oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
@@ -223,7 +422,29 @@ describe("Card", () => {
                     is_duel_legal: true,
                     is_commander_legal: true,
                     is_one_versus_one_legal: true,
-                    is_future_legal: true
+                    is_future_legal: true,
+                    is_standard_banned: false,
+                    is_frontier_banned: false,
+                    is_modern_banned: false,
+                    is_pauper_banned: false,
+                    is_legacy_banned: false,
+                    is_penny_banned: false,
+                    is_vintage_banned: false,
+                    is_duel_banned: false,
+                    is_commander_banned: false,
+                    is_one_versus_one_banned: false,
+                    is_future_banned: false,
+                    is_standard_restricted: false,
+                    is_frontier_restricted: false,
+                    is_modern_restricted: false,
+                    is_pauper_restricted: false,
+                    is_legacy_restricted: false,
+                    is_penny_restricted: false,
+                    is_vintage_restricted: false,
+                    is_duel_restricted: false,
+                    is_commander_restricted: false,
+                    is_one_versus_one_restricted: false,
+                    is_future_restricted: false
                 },
                 is_reserved: false,
                 is_reprint: false,
@@ -275,7 +496,7 @@ describe("Card", () => {
             };
             let errorOccurred = false;
 
-            let validateCardStub = sandbox.stub(Card, "validateCard").callsFake(() => { 
+            let validateCardStub = sandbox.stub(Card, "validateCard").callsFake(() => {
                 throw new Error("new validate card error");
             });
 
@@ -284,8 +505,7 @@ describe("Card", () => {
 
             try {
                 returnedCard = Card.createCard(card);
-            }
-            catch (e) {
+            } catch (e) {
                 errorOccurred = true;
             }
             // assert
@@ -305,7 +525,7 @@ describe("Card", () => {
                 multiverse_ids: [426786],
                 name: "Cruel Reality",
                 layout: "normal",
-                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png",
                 converted_mana_cost: 7,
                 type_line: "Enchantment — Aura Curse",
                 oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
@@ -516,7 +736,7 @@ describe("Card", () => {
                 multiverse_ids: [426786],
                 name: "Cruel Reality",
                 layout: "normal",
-                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+                image_uri: "https://img.scryfall.com/cards/png/en/akh/84.png",
                 converted_mana_cost: 7,
                 type_line: "Enchantment — Aura Curse",
                 oracle_text: "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
@@ -6321,6 +6541,1260 @@ describe("Card", () => {
             expect(errorOccurred).to.be.true;
         });
 
+        it("should ignore if is_standard_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_standard_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_standard_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_frontier_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_frontier_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_frontier_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_modern_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_modern_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_modern_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_pauper_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_pauper_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_pauper_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_legacy_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_legacy_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_legacy_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_penny_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_penny_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_penny_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_vintage_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_vintage_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_vintage_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_duel_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_duel_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_duel_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_commander_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_commander_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_commander_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_one_versus_one_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_one_versus_one_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_one_versus_one_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_future_banned is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_future_banned is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_banned: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_standard_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_standard_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_standard_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_frontier_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_frontier_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_frontier_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_modern_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_modern_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_modern_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_pauper_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_pauper_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_pauper_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_legacy_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_legacy_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_legacy_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_penny_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_penny_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_penny_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_vintage_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_vintage_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_vintage_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_duel_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_duel_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_duel_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_commander_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_commander_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_commander_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_one_versus_one_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_one_versus_one_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_one_versus_one_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
+        it("should ignore if is_future_restricted is missing", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_legal: false
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.false;
+        });
+
+        it("should error if is_future_restricted is not a boolean", () => {
+            // arrange
+            let legality = {
+                is_commander_legal: false,
+                is_duel_legal: false,
+                is_frontier_legal: false,
+                is_future_legal: false,
+                is_legacy_legal: false,
+                is_modern_legal: false,
+                is_one_versus_one_legal: false,
+                is_pauper_legal: false,
+                is_penny_legal: false,
+                is_standard_legal: false,
+                is_vintage_legal: false,
+                is_future_restricted: "false"
+            };
+            let errorOccurred = false;
+
+            // act
+            try {
+                Card.validateLegality(legality);
+            } catch (e) {
+                errorOccurred = true;
+            }
+
+            // assert
+            expect(errorOccurred).to.be.true;
+        });
+
         it("should allow legality values to be true", () => {
             // arrange
             let legality = {
@@ -6334,7 +7808,29 @@ describe("Card", () => {
                 is_pauper_legal: true,
                 is_penny_legal: true,
                 is_standard_legal: true,
-                is_vintage_legal: true
+                is_vintage_legal: true,
+                is_commander_banned: true,
+                is_duel_banned: true,
+                is_frontier_banned: true,
+                is_future_banned: true,
+                is_legacy_banned: true,
+                is_modern_banned: true,
+                is_one_versus_one_banned: true,
+                is_pauper_banned: true,
+                is_penny_banned: true,
+                is_standard_banned: true,
+                is_vintage_banned: true,
+                is_commander_restricted: true,
+                is_duel_restricted: true,
+                is_frontier_restricted: true,
+                is_future_restricted: true,
+                is_legacy_restricted: true,
+                is_modern_restricted: true,
+                is_one_versus_one_restricted: true,
+                is_pauper_restricted: true,
+                is_penny_restricted: true,
+                is_standard_restricted: true,
+                is_vintage_restricted: true
             };
             let errorOccurred = false;
 
@@ -6362,7 +7858,29 @@ describe("Card", () => {
                 is_pauper_legal: false,
                 is_penny_legal: false,
                 is_standard_legal: false,
-                is_vintage_legal: false
+                is_vintage_legal: false,
+                is_commander_banned: false,
+                is_duel_banned: false,
+                is_frontier_banned: false,
+                is_future_banned: false,
+                is_legacy_banned: false,
+                is_modern_banned: false,
+                is_one_versus_one_banned: false,
+                is_pauper_banned: false,
+                is_penny_banned: false,
+                is_standard_banned: false,
+                is_vintage_banned: false,
+                is_commander_restricted: false,
+                is_duel_restricted: false,
+                is_frontier_restricted: false,
+                is_future_restricted: false,
+                is_legacy_restricted: false,
+                is_modern_restricted: false,
+                is_one_versus_one_restricted: false,
+                is_pauper_restricted: false,
+                is_penny_restricted: false,
+                is_standard_restricted: false,
+                is_vintage_restricted: false
             };
             let errorOccurred = false;
 

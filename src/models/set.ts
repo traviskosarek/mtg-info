@@ -30,7 +30,7 @@ export class Set {
             icon_uri: set.icon_uri
         };
 
-        return newSet;
+        return JSON.parse(JSON.stringify(newSet));
     }
 
     public static validateSet(set: any) {

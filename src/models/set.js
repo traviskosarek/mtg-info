@@ -22,7 +22,7 @@ var Set = (function () {
             block_name: set.block_name,
             icon_uri: set.icon_uri
         };
-        return newSet;
+        return JSON.parse(JSON.stringify(newSet));
     };
     Set.validateSet = function (set) {
         try {
