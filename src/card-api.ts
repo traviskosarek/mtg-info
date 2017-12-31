@@ -460,7 +460,7 @@ export class CardAPI {
             }
             
             if (noFilters) {
-                query = query.order("set_name").order("collector_number");
+                query = query.order("set_code");
             }
 
             this.datastore
