@@ -2,7 +2,7 @@
     "multiverse_ids": [426786],
     "name": "Cruel Reality",
     "layout": "normal",
-    "image_uri": "https://img.scryfall.com/cards/png/en/akh/84.png?1509809491",
+    "image_uri": "https://img.scryfall.com/cards/png/en/akh/84.png",
     "converted_mana_cost": 7,
     "type_line": "Enchantment — Aura Curse",
     "oracle_text": "Enchant player At the beginning of enchanted player's upkeep, that player sacrifices a creature or planeswalker. If the player can't, he or she loses 5 life.",
