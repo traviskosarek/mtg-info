@@ -8,32 +8,32 @@ export interface ICardRelatedLinks {
     /**
      * A URI linking to this card on Gatherer
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardRelatedLinks
      */
-    gatherer: string;
+    gatherer?: string;
 
     /**
      * A URI linking to this card on TCGPlayer
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardRelatedLinks
      */
-    tcgplayer: string;
+    tcgplayer?: string;
 
     /**
      * A URI linking to this card on EDHREC
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardRelatedLinks
      */
-    edhrec: string;
+    edhrec?: string;
 
     /**
      * A URI linking to this card on MTG Top 8
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardRelatedLinks
      */
-    mtgtop8: string;
+    mtgtop8?: string;
 }

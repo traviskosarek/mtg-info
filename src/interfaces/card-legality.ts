@@ -99,7 +99,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_standard_banned: boolean;
+    is_standard_banned?: boolean;
 
     /**
      * Returns if this card is banned in the frontier format or not
@@ -107,7 +107,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_frontier_banned: boolean;
+    is_frontier_banned?: boolean;
 
     /**
      * Returns if this card is banned in the modern format or not
@@ -115,7 +115,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_modern_banned: boolean;
+    is_modern_banned?: boolean;
 
     /**
      * Returns if this card is banned in the pauper format or not
@@ -123,7 +123,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_pauper_banned: boolean;
+    is_pauper_banned?: boolean;
 
     /**
      * Returns if this card is banned in the legacy format or not
@@ -131,7 +131,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_legacy_banned: boolean;
+    is_legacy_banned?: boolean;
 
     /**
      * Returns if this card is banned in the penny format or not
@@ -139,7 +139,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_penny_banned: boolean;
+    is_penny_banned?: boolean;
 
     /**
      * Returns if this card is banned in the vintage format or not
@@ -147,7 +147,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_vintage_banned: boolean;
+    is_vintage_banned?: boolean;
 
     /**
      * Returns if this card is banned in the duel format or not
@@ -155,7 +155,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_duel_banned: boolean;
+    is_duel_banned?: boolean;
 
     /**
      * Returns if this card is banned in the commander format or not
@@ -163,7 +163,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_commander_banned: boolean;
+    is_commander_banned?: boolean;
 
     /**
      * Returns if this card is banned in the 1v1 format or not
@@ -171,7 +171,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_one_versus_one_banned: boolean;
+    is_one_versus_one_banned?: boolean;
 
     /**
      * Returns if this card is banned in the future format or not
@@ -179,7 +179,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_future_banned: boolean;
+    is_future_banned?: boolean;
 
     /**
      * Returns if this card is restricted in the standard format or not
@@ -187,7 +187,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_standard_restricted: boolean;
+    is_standard_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the frontier format or not
@@ -195,7 +195,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_frontier_restricted: boolean;
+    is_frontier_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the modern format or not
@@ -203,7 +203,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_modern_restricted: boolean;
+    is_modern_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the pauper format or not
@@ -211,7 +211,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_pauper_restricted: boolean;
+    is_pauper_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the legacy format or not
@@ -219,7 +219,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_legacy_restricted: boolean;
+    is_legacy_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the penny format or not
@@ -227,7 +227,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_penny_restricted: boolean;
+    is_penny_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the vintage format or not
@@ -235,7 +235,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_vintage_restricted: boolean;
+    is_vintage_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the duel format or not
@@ -243,7 +243,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_duel_restricted: boolean;
+    is_duel_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the commander format or not
@@ -251,7 +251,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_commander_restricted: boolean;
+    is_commander_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the 1v1 format or not
@@ -259,7 +259,7 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_one_versus_one_restricted: boolean;
+    is_one_versus_one_restricted?: boolean;
 
     /**
      * Returns if this card is restricted in the future format or not
@@ -267,5 +267,5 @@ export interface ICardLegality {
      * @type {?boolean}
      * @memberof ICardLegality
      */
-    is_future_restricted: boolean;
+    is_future_restricted?: boolean;
 }

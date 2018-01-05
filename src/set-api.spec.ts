@@ -10,6 +10,7 @@ import { Query } from "@google-cloud/datastore";
 
 import { SetAPI } from "./set-api";
 import { Set } from "./models";
+import { ISet } from "./interfaces";
 
 let sandbox;
 beforeEach(function() {
@@ -47,7 +48,7 @@ describe("SetAPI", () => {
     describe("putSet", () => {
         it("should validate input on a valid set", () => {
             // arrange
-            let body = {
+            let body: { body: ISet } = {
                 body: {
                     set_code: "ust",
                     set_name: "Unstable",
@@ -109,7 +110,7 @@ describe("SetAPI", () => {
 
         it("should 'put' a valid set", () => {
             // arrange
-            let body = {
+            let body: { body: ISet } = {
                 body: {
                     set_code: "ust",
                     set_name: "Unstable",
@@ -150,7 +151,7 @@ describe("SetAPI", () => {
 
         it("should fail gracefully on save error", () => {
             // arrange
-            let body = {
+            let body: { body: ISet } = {
                 body: {
                     set_code: "ust",
                     set_name: "Unstable",
@@ -193,7 +194,7 @@ describe("SetAPI", () => {
     describe("putSets", () => {
         it("should allow input with one or more possible sets", () => {
             // arrange
-            let body = {
+            let body: { body: ISet[] } = {
                 body: [
                     {
                         set_code: "ust",
@@ -256,7 +257,7 @@ describe("SetAPI", () => {
 
         it("should validate all possible sets", () => {
             // arrange
-            let body = {
+            let body: { body: ISet[] } = {
                 body: [
                     {
                         set_code: "ust",
@@ -306,7 +307,7 @@ describe("SetAPI", () => {
 
         it("should 'put' all validated sets", () => {
             // arrange
-            let body = {
+            let body: { body: ISet[] } = {
                 body: [
                     {
                         set_code: "ust",
@@ -363,7 +364,7 @@ describe("SetAPI", () => {
 
         it("should fail gracefully on save error", () => {
             // arrange
-            let body = {
+            let body: { body: ISet[] } = {
                 body: [
                     {
                         set_code: "ust",

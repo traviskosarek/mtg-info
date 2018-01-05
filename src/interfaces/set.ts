@@ -27,7 +27,7 @@ export interface ISet {
      * @type {?string}
      * @memberof ISet
      */
-    release_date: string;
+    release_date?: string;
 
     /**
      * The category of the type of set
@@ -48,10 +48,10 @@ export interface ISet {
     /**
      * The code of the parent set in the block
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ISet
      */
-    parent_set_code: string;
+    parent_set_code?: string;
 
     /**
      * Is 'true' if this set was only released digitally
@@ -75,7 +75,7 @@ export interface ISet {
      * @type {?string}
      * @memberof ISet
      */
-    block_code: string;
+    block_code?: string;
 
     /**
      * The full-text name of the block containing this set, if any
@@ -83,7 +83,7 @@ export interface ISet {
      * @type {?string}
      * @memberof ISet
      */
-    block_name: string;
+    block_name?: string;
 
     /**
      * A URI pointing to an svg that is the icon for this set

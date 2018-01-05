@@ -28,7 +28,7 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    oracle_text: string;
+    oracle_text?: string;
 
     /**
      * The mana cost of this card face represented by symbols
@@ -52,7 +52,7 @@ export interface ICardFace {
      * @type {?string[]}
      * @memberof ICardFace
      */
-    color_indicator: string[];
+    color_indicator?: string[];
 
     /**
      * The power (attack) of this card face, if any
@@ -60,7 +60,7 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    power: string;
+    power?: string;
 
     /**
      * The toughness (defense) of this card face, if any
@@ -68,7 +68,7 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    toughness: string;
+    toughness?: string;
 
     /**
      * The loyalty of this card face, if any
@@ -76,7 +76,7 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    loyalty: string;
+    loyalty?: string;
 
     /**
      * The flavor text printed on this card face, if any
@@ -84,7 +84,7 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    flavor_text: string;
+    flavor_text?: string;
 
     /**
      * The PNG of this card face, if any
@@ -92,5 +92,5 @@ export interface ICardFace {
      * @type {?string}
      * @memberof ICardFace
      */
-    image_uri: string;
+    image_uri?: string;
 }

@@ -16,7 +16,7 @@ export interface ICard {
      * @type {?string[]}
      * @memberof ICard
      */
-    multiverse_ids: number[];
+    multiverse_ids?: number[];
 
     /**
      * The full-text name of this card
@@ -56,15 +56,15 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    oracle_text: string;
+    oracle_text?: string;
 
     /**
      * The mana cost of this card represented by symbols
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICard
      */
-    mana_cost: string;
+    mana_cost?: string;
 
     /**
      * The power (attack) of this card, if any
@@ -72,7 +72,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    power: string;
+    power?: string;
 
     /**
      * The toughness (defense) of this card, if any
@@ -80,7 +80,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    toughness: string;
+    toughness?: string;
 
     /**
      * The loyalty of this card, if any
@@ -88,7 +88,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    loyalty: string;
+    loyalty?: string;
 
     /**
      * This card's life modifier, if it is a Vanguard card. This value will contain a delta.
@@ -96,23 +96,23 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    life_modifer: string;
+    life_modifer?: string;
 
     /**
      * This card's hand modifier, if it is a Vanguard card. This value will contain a delta
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICard
      */
-    hand_modifier: string;
+    hand_modifier?: string;
 
     /**
      * The colors of this card
      *
-     * @type {string[]}
+     * @type {?string[]}
      * @memberof ICard
      */
-    colors: string[];
+    colors?: string[];
 
     /**
      * The colors in this card's color indicator, if any
@@ -120,7 +120,7 @@ export interface ICard {
      * @type {?string[]}
      * @memberof ICard
      */
-    color_indicator: string[];
+    color_indicator?: string[];
 
     /**
      * The color identity of this card
@@ -133,10 +133,10 @@ export interface ICard {
     /**
      * Cards related to this card
      *
-     * @type {IRelatedCard[]}
+     * @type {?IRelatedCard[]}
      * @memberof ICard
      */
-    related_cards: IRelatedCard[];
+    related_cards?: IRelatedCard[];
 
     /**
      * The faces of this card, if any
@@ -144,7 +144,7 @@ export interface ICard {
      * @type {?ICardFace[]}
      * @memberof ICard
      */
-    card_faces: ICardFace[];
+    card_faces?: ICardFace[];
 
     /**
      * An object representing the various formats this card is legal in
@@ -168,7 +168,7 @@ export interface ICard {
      * @type {?number}
      * @memberof ICard
      */
-    edhrec_rank: number;
+    edhrec_rank?: number;
 
     /**
      * The set code this card is in
@@ -197,7 +197,7 @@ export interface ICard {
     /**
      * A URI that points to a PNG image of this card
      *
-     * @type {?string}
+     * @type {string}
      * @memberof ICard
      */
     image_uri: string;
@@ -232,7 +232,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    flavor_text: string;
+    flavor_text?: string;
 
     /**
      * The artist who created the artwork for this card, if available
@@ -240,7 +240,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    artist: string;
+    artist?: string;
 
     /**
      * The frame type of this card
@@ -264,7 +264,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    watermark: string;
+    watermark?: string;
 
     /**
      * The border color type of this card
@@ -280,7 +280,7 @@ export interface ICard {
      * @type {?number}
      * @memberof ICard
      */
-    story_spotlight_number: number;
+    story_spotlight_number?: number;
 
     /**
      * A url to this card's story spotlight article, if any
@@ -288,7 +288,7 @@ export interface ICard {
      * @type {?string}
      * @memberof ICard
      */
-    story_spotlight_uri: string;
+    story_spotlight_uri?: string;
 
     /**
      * Returns if this card is timeshifted or not
@@ -317,26 +317,26 @@ export interface ICard {
     /**
      * The current value of this card in USD
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICard
      */
-    usd_price: string;
+    usd_price?: string;
 
     /**
      * The current value of this card in tix
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICard
      */
-    tix_price: string;
+    tix_price?: string;
 
     /**
      * The current value of this card in EUR
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICard
      */
-    eur_price: string;
+    eur_price?: string;
 
     /**
      * An object representing related links to this card

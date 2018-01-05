@@ -8,64 +8,64 @@ export interface ICardPurchaseLinks {
     /**
      * A URI linking to this card's results on Amazon
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    amazon: string;
+    amazon?: string;
 
     /**
      * A URI linking to this card's results on eBay
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    ebay: string;
+    ebay?: string;
 
     /**
      * A URI linking to this card's results on TCGPlayer
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    tcgplayer: string;
+    tcgplayer?: string;
 
     /**
      * A URI linking to this card's results on Magic Card Market
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    magiccardmarket: string;
+    magiccardmarket?: string;
 
     /**
      * A URI linking to this card's results on Card Hoarder
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    cardhoarder: string;
+    cardhoarder?: string;
 
     /**
      * A URI linking to this card's results on Card Kingdom
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    card_kingdom: string;
+    card_kingdom?: string;
 
     /**
      * A URI linking to this card's results on MTGO Traders
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    mtgo_traders: string;
+    mtgo_traders?: string;
 
     /**
      * A URI linking to this card's results on CoolStuffInc
      *
-     * @type {string}
+     * @type {?string}
      * @memberof ICardPurchaseLinks
      */
-    coolstuffinc: string;
+    coolstuffinc?: string;
 }

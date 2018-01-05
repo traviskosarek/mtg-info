@@ -10,6 +10,7 @@ import { Query } from "@google-cloud/datastore";
 
 import { CardAPI } from "./card-api";
 import { Card } from "./models";
+import { ICard } from "./interfaces";
 import { Layouts, Rarities, Frames, Watermarks, BorderColors } from "./enums/index";
 
 let sandbox;
@@ -172,7 +173,7 @@ describe("CardAPI", () => {
 
         it("should 'put' a valid card", () => {
             // arrange
-            let body = {
+            let body: { body: ICard } = {
                 body: {
                     multiverse_ids: [426786],
                     name: "Cruel Reality",
@@ -243,10 +244,7 @@ describe("CardAPI", () => {
                     loyalty: undefined,
                     power: undefined,
                     related_cards: undefined,
-                    toughness: undefined,
-                    extra_value1: true,
-                    extra_value2: "value",
-                    extra_value3: 123
+                    toughness: undefined
                 }
             };
             let request = mockReq(body);
@@ -272,7 +270,7 @@ describe("CardAPI", () => {
 
         it("should fail gracefully on save error", () => {
             // arrange
-            let body = {
+            let body: { body: ICard } = {
                 body: {
                     multiverse_ids: [426786],
                     name: "Cruel Reality",
@@ -343,10 +341,7 @@ describe("CardAPI", () => {
                     loyalty: undefined,
                     power: undefined,
                     related_cards: undefined,
-                    toughness: undefined,
-                    extra_value1: true,
-                    extra_value2: "value",
-                    extra_value3: 123
+                    toughness: undefined
                 }
             };
             let request = mockReq(body);
@@ -374,7 +369,7 @@ describe("CardAPI", () => {
     describe("putCards", () => {
         it("should allow input with one or more possible cards", () => {
             // arrange
-            let body = {
+            let body: { body: ICard[] } = {
                 body: [
                     {
                         multiverse_ids: [426786],
@@ -488,7 +483,7 @@ describe("CardAPI", () => {
 
         it("should validate all possible cards", () => {
             // arrange
-            let body = {
+            let body: { body: ICard[] } = {
                 body: [
                     {
                         multiverse_ids: [426786],
@@ -590,7 +585,6 @@ describe("CardAPI", () => {
                         collector_number: "4",
                         is_digital: true,
                         rarity: "mythic",
-                        illustration_id: "da62ded1-bedd-44c6-8950-ca56e691a899",
                         artist: "Chris Rahn",
                         frame: "2015",
                         is_full_art: false,
@@ -641,7 +635,7 @@ describe("CardAPI", () => {
 
         it("should 'put' all validated cards", () => {
             // arrange
-            let body = {
+            let body: { body: ICard[] } = {
                 body: [
                     {
                         multiverse_ids: [426786],
@@ -743,7 +737,6 @@ describe("CardAPI", () => {
                         collector_number: "4",
                         is_digital: true,
                         rarity: "mythic",
-                        illustration_id: "da62ded1-bedd-44c6-8950-ca56e691a899",
                         artist: "Chris Rahn",
                         frame: "2015",
                         is_full_art: false,
@@ -798,7 +791,7 @@ describe("CardAPI", () => {
 
         it("should fail gracefully on save error", () => {
             // arrange
-            let body = {
+            let body: { body: ICard[] }  = {
                 body: [
                     {
                         multiverse_ids: [426786],
@@ -900,7 +893,6 @@ describe("CardAPI", () => {
                         collector_number: "4",
                         is_digital: true,
                         rarity: "mythic",
-                        illustration_id: "da62ded1-bedd-44c6-8950-ca56e691a899",
                         artist: "Chris Rahn",
                         frame: "2015",
                         is_full_art: false,
