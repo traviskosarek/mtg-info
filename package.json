@@ -17,7 +17,7 @@
     "dependencies": {
         "@google-cloud/datastore": "^5.1.0",
         "express": "^4.17.1",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "valid-url": "^1.0.9"
     },
     "devDependencies": {
